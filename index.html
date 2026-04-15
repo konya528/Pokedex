@@ -124,7 +124,7 @@
 
 <div class="controls">
     <h1>すべてのすがた図鑑</h1>
-    <input type="text" id="search" class="search-box" placeholder="名前、番号、Memoで検索...">
+    <input type="text" id="search" class="search-box" placeholder="名前、番号、メモで検索...">
     
     <div class="filters">
         <label>世代：
@@ -172,6 +172,15 @@
                 <option value="all">すべて</option>
                 <option value="registered">登録済</option>
                 <option value="unregistered">未登録</option>
+            </select>
+        </label>
+
+        <label>所持状況：
+            <select id="filter-own" onchange="render()">
+                <option value="all">すべて</option>
+                <option value="所持">所持</option>
+                <option value="未所持">未所持</option>
+                <option value="不可">不可</option>
             </select>
         </label>
 
@@ -265,11 +274,13 @@
         const softFilter = document.getElementById('filter-soft').value;
         const regFilter = document.getElementById('filter-reg').value;
         const catFilter = document.getElementById('filter-cat').value;
+        const ownFilter = document.getElementById('filter-own').value;
+
         const gallery = document.getElementById('gallery');
         
         const filtered = allSprites.filter(s => {
             const name = String(s["名前"] || "").toLowerCase();
-            const memo = String(s["Memo"] || "").toLowerCase();
+            const memo = String(s["メモ"] || "").toLowerCase();
             const matchQuery = name.includes(query) || String(s.id).includes(query) || memo.includes(query);
             const matchGen = genFilter === 'all' || String(s["世代"]).includes(genFilter);
             
@@ -288,7 +299,15 @@
             const matchShiny = filters.shiny ? s.isShiny : !s.isShiny;
             const matchCategory = catFilter === 'all' || String(s["カテゴリ"] || "").includes(catFilter);
 
-            return matchQuery && matchGen && matchSoft && matchReg && matchShiny && matchCategory;
+            // 所持状況フィルタ
+            let matchOwn = true;
+            if (ownFilter !== 'all') {
+                // スプシから取得したownStatus（所持/未所持/不可）と一致するか
+                matchOwn = (s.ownStatus === ownFilter);
+            }
+
+            // 全ての条件に一致するか
+            return matchQuery && matchGen && matchSoft && matchReg && matchShiny && matchCategory && matchOwn;
         });
 
         gallery.innerHTML = filtered.map(s => {
@@ -418,7 +437,7 @@
             <hr>
             <p><strong>進化方法：</strong><br>${s["進化方法"] || "情報なし"}</p>
             <p><strong>進化系：</strong><br>${s["進化系"] || "ー"}</p>
-            <p><strong>Memo：</strong><br>${s["Memo"] || "ー"}</p>
+            <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
             <hr>
             <a href="${s["ポケ徹"]}" target="_blank" style="display:block; text-align:center; color:var(--primary); text-decoration:none; font-weight:bold; background:#eee; padding:10px; border-radius:10px;">🔗 ポケモン徹底攻略を見る</a>
         `;
