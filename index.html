@@ -102,7 +102,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
             z-index: 100;
             pointer-events: none;
@@ -222,8 +222,8 @@
 
 <script>
     const GAS_URL = "https://script.google.com/macros/s/AKfycbyrvdb8OfjjeNQ5GPxqZusOOm2r9BnQ8gTQXyFAzDfiOZNh47D3LnV2uh1r-ftNo5Dk/exec";
-    const ICON_REG = "icon_reg.png";
-    const ICON_OWN = "icon_own.png";
+    const ICON_REG = "image-assets/icon_reg.png";
+    const ICON_OWN = "image-assets/icon_own.png";
 
     let allSprites = [];
     let filters = { shiny: false };
@@ -346,7 +346,7 @@
 
             return `
                 <div class="card ${regClass}" onclick="showDetail('${s.uKey}')">
-                    ${genderHtml} ${s.isShiny ? '<img src="icon_shiny.png" class="badge-shiny-icon" title="色違い">' : ''}
+                    ${genderHtml} ${s.isShiny ? '<img src="image-assets/icon_shiny.png" class="badge-shiny-icon" title="色違い">' : ''}
                     <img src="${displayImg}" loading="lazy">
                     <span class="no-text">No. ${s.id}</span>
                     <span class="jp-name">
