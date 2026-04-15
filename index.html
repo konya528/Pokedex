@@ -41,7 +41,17 @@
         }
 
         .badge { position: absolute; top: 8px; right: 8px; font-size: 9px; padding: 2px 6px; border-radius: 10px; color: white; font-weight: bold; }
-        .badge-s { background: #ffca28; color: #000; }
+        .badge-shiny-icon {
+            position: absolute;
+            width: 24px !important;
+            height: 24px !important;
+            top: 8px;      /* 上からの位置 */
+            right: 8px;    /* 右からの位置 */
+            width: 24px;   /* アイコンのサイズ（お好みで調整） */
+            height: 24px;
+            z-index: 110;  /* 性別マークより上にくるように設定 */
+            pointer-events: none; /* クリックの邪魔をしない */
+        }
         .soft-icons { display: flex; gap: 2px; margin-top: 5px; flex-wrap: wrap; justify-content: center; }
         .soft-badge { font-size: 8px; padding: 1px 4px; border-radius: 3px; background: #eee; color: #777; font-weight: bold; }
         .soft-badge.active { background: #34495e; color: white; }
@@ -212,8 +222,8 @@
 
 <script>
     const GAS_URL = "https://script.google.com/macros/s/AKfycbyrvdb8OfjjeNQ5GPxqZusOOm2r9BnQ8gTQXyFAzDfiOZNh47D3LnV2uh1r-ftNo5Dk/exec";
-    const ICON_REG = "https://lh3.googleusercontent.com/u/0/d/1Fbp7oQ4uxG3AYhxIJ08o0QkKjCFpuGa1";
-    const ICON_OWN = "https://lh3.googleusercontent.com/u/0/d/17GHXgqfyOIrEASDgPRcKVDvK9RxiNP8D";
+    const ICON_REG = "icon_reg.png";
+    const ICON_OWN = "icon_own.png";
 
     let allSprites = [];
     let filters = { shiny: false };
@@ -336,7 +346,7 @@
 
             return `
                 <div class="card ${regClass}" onclick="showDetail('${s.uKey}')">
-                    ${genderHtml} ${s.isShiny ? '<span class="badge badge-s">Shiny</span>' : ''}
+                    ${genderHtml} ${s.isShiny ? '<img src="icon_shiny.png" class="badge-shiny-icon" title="色違い">' : ''}
                     <img src="${displayImg}" loading="lazy">
                     <span class="no-text">No. ${s.id}</span>
                     <span class="jp-name">
