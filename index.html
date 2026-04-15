@@ -30,14 +30,14 @@
         .no-text { font-weight: bold; color: var(--primary); font-size: 11px; }
         .jp-name {
             font-weight: bold;
-            font-size: 13px; /* 14pxから13pxへ微調整 */
+            font-size: 13px;
             margin: 2px 0;
             text-align: center;
-            height: 2.4em; /* 2行分確保しつつ、高さを固定 */
+            height: 2.4em;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* はみ出し防止 */
+            overflow: hidden;
         }
 
         .badge { position: absolute; top: 8px; right: 8px; font-size: 9px; padding: 2px 6px; border-radius: 10px; color: white; font-weight: bold; }
@@ -56,63 +56,51 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .loading-text { font-weight: bold; color: var(--primary); letter-spacing: 2px; }
 
-        /* アイコン用追加CSS */
-
-        /* カード内のアイコンコンテナ（余白を調整） */
         .status-icons {
             display: flex;
             justify-content: center;
-            align-items: center;    /* 垂直方向を中央に */
-            gap: 10px;              /* アイコン間の距離 */
+            align-items: center;
+            gap: 10px;
             margin-top: 5px;
-            width: 100%;            /* 横幅いっぱい使って中央寄せ */
+            width: 100%;
         }
-        /* アイコン自体のサイズ（24px程度がスッキリします） */
         .status-icons .icon-btn {
-            width: 30px !important;  /* !importantで強制適用 */
+            width: 30px !important;
             height: 30px !important;
             cursor: pointer;
             transition: 0.2s;
             object-fit: contain;
-            flex-shrink: 0;         /* 圧縮されないように固定 */
+            flex-shrink: 0;
         }
         .is-off { filter: grayscale(100%); opacity: 0.3; }
+        .icon-btn:hover { transform: scale(1.1); }
 
-        /* ホバーした時に少しだけ浮かせる（やりすぎない程度に） */
-        .icon-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* 「不可」の場合のアイコンスタイル */
         .is-disabled {
             cursor: not-allowed !important;
-            opacity: 0.05 !important; /* ほぼ透明 */
+            opacity: 0.05 !important;
             display:none !important;
-            pointer-events: none !important; /* クリック不可を確実にする */
+            pointer-events: none !important;
             filter: grayscale(100%) !important;
         }
 
-        /* 性別バッジのスタイル */
         .gender-badge {
             position: absolute;
             top: 8px;
             left: 8px;
-            width: 20px; /* 少し大きくして見やすく */
+            width: 20px;
             height: 20px;
             display: flex;
             align-items: center;
             justify-content: flex-start;
             font-size: 12px;
             font-weight: bold;
-            color: white;
-            z-index: 100; /* 重なり順を上げる */
-            pointer-events: none; /* マークがクリックの邪魔をしないように */
+            z-index: 100;
+            pointer-events: none;
         }
-        .gender-male { color: #3498db; }    /* 青 */
-        .gender-female { color: #e74c3c; }  /* 赤 */
-        .gender-both { color: #ca9dce;  } /* オス・メス両方 */
-        .gender-none { color: #cccccc; font-size: 9px; } /* 不明 */
-
+        .gender-male { color: #3498db; }
+        .gender-female { color: #e74c3c; }
+        .gender-both { color: #ca9dce; }
+        .gender-none { color: #cccccc; font-size: 9px; }
     </style>
 </head>
 <body>
@@ -141,7 +129,7 @@
         <label>カテゴリ：
             <select id="filter-cat" onchange="render()">
                 <option value="all">すべて</option>
-                <option value="デフォルト" selected>デフォルト</option>
+                <option value="デフォルト">デフォルト</option>
                 <option value="しゆうちがい">しゆうちがい</option>
                 <option value="すがたちがい">すがたちがい</option>
                 <option value="フォルムちがい">フォルムちがい</option>
@@ -184,6 +172,7 @@
             </select>
         </label>
 
+        <button onclick="resetFilters()" style="background:#95a5a6; color:white; border:none;">フィルタリセット</button>
         <button id="btn-shiny" onclick="toggleFilter('shiny')">色違いモード</button>
     </div>
     <div id="status">準備中...</div>
@@ -193,15 +182,13 @@
 
 <div id="detailModal" class="modal" onclick="closeModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="close-btn" onclick="document.getElementById('detailModal').style.display='none'">&times;</span>
+        <span class="close-btn" onclick="document.getElementById('detailModal').style.display='none'">×</span>
         <div id="modal-body"></div>
     </div>
 </div>
 
 <script>
     const GAS_URL = "https://script.google.com/macros/s/AKfycbyrvdb8OfjjeNQ5GPxqZusOOm2r9BnQ8gTQXyFAzDfiOZNh47D3LnV2uh1r-ftNo5Dk/exec";
-    
-    // アイコン直リンク
     const ICON_REG = "https://lh3.googleusercontent.com/u/0/d/1Fbp7oQ4uxG3AYhxIJ08o0QkKjCFpuGa1";
     const ICON_OWN = "https://lh3.googleusercontent.com/u/0/d/17GHXgqfyOIrEASDgPRcKVDvK9RxiNP8D";
 
@@ -218,46 +205,44 @@
         try {
             const response = await fetch(GAS_URL);
             const sheetData = await response.json();
-            
             const expandedData = [];
-            
 
             sheetData.forEach(item => {
                 const id = item["全国図鑑No"]; 
-                const name = item["名前"];
+                const name = item["名前"] || "";
                 const cleanName = name.replace(/[♂♀]/g, "");
-                
                 const genderVal = item["性別"] ? String(item["性別"]).trim() : "";
 
-                // --- 通常色データ ---
+                // 通常色
                 expandedData.push({
                     ...item,
-                        id: id,
-                        uKey: `${id}_${name}_normal`,
-                        isShiny: false,
-                        displayName: cleanName, // ♂♀を消した名前
-                        gender: genderVal, // スプシの「性別」列を参照
-                        imgUrl: item["画像"] || "", 
-                        regStatus: (String(item["HOME 図鑑登録"]).trim().toUpperCase() === "YES"),
-                        ownStatus: item["HOME 所持状況"] || "未所持"
-                    });
+                    id: id,
+                    uKey: `${id}_${name}_normal`,
+                    isShiny: false,
+                    displayName: cleanName,
+                    gender: genderVal,
+                    imgUrl: item["画像"] || "", 
+                    regStatus: (String(item["HOME 図鑑登録"]).trim().toUpperCase() === "YES"),
+                    ownStatus: item["HOME 所持状況"] || "未所持"
+                });
 
-                // --- 色違いデータ ---
+                // 色違い
                 expandedData.push({
                     ...item,
-                        id: id,
-                        uKey: `${id}_${name}_shiny`,
-                        isShiny: true,
-                        displayName: cleanName, // ♂♀を消した名前
-                        gender: genderVal,
-                        imgUrl: item["画像 (色違い)"] || "", 
-                        regStatus: (String(item["HOME 図鑑登録 (色違い)"]).trim().toUpperCase() === "YES"),
-                        ownStatus: item["HOME 所持状況 (色違い)"] || "不可"
-                    });
+                    id: id,
+                    uKey: `${id}_${name}_shiny`,
+                    isShiny: true,
+                    displayName: cleanName,
+                    gender: genderVal,
+                    imgUrl: item["画像 (色違い)"] || "", 
+                    regStatus: (String(item["HOME 図鑑登録 (色違い)"]).trim().toUpperCase() === "YES"),
+                    ownStatus: item["HOME 所持状況 (色違い)"] || "不可"
+                });
             });
 
             allSprites = expandedData;
             status.innerText = `読み込み完了: ${sheetData.length}種`;
+            loadFilters();
             if (loadingScreen) loadingScreen.style.display = 'none';
             render();
 
@@ -291,7 +276,6 @@
             };
             const matchSoft = softFilter === 'all' || checkYes(s[softFilter]);
             
-            // 図鑑状況フィルタ
             let matchReg = true;
             if (regFilter === 'registered') matchReg = s.regStatus;
             if (regFilter === 'unregistered') matchReg = !s.regStatus;
@@ -299,14 +283,11 @@
             const matchShiny = filters.shiny ? s.isShiny : !s.isShiny;
             const matchCategory = catFilter === 'all' || String(s["カテゴリ"] || "").includes(catFilter);
 
-            // 所持状況フィルタ
             let matchOwn = true;
             if (ownFilter !== 'all') {
-                // スプシから取得したownStatus（所持/未所持/不可）と一致するか
                 matchOwn = (s.ownStatus === ownFilter);
             }
 
-            // 全ての条件に一致するか
             return matchQuery && matchGen && matchSoft && matchReg && matchShiny && matchCategory && matchOwn;
         });
 
@@ -318,47 +299,49 @@
             const isOff = status === "未所持";
             const displayImg = s.imgUrl || "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png";
 
-            // 性別マークのHTML生成
-            // render関数内の性別判定部分
             let genderHtml = '';
-            const g = String(s.gender || "").trim(); // 空白を除去して文字列化
-
+            const g = String(s.gender || "").trim();
             if (g === '♂' || g === 'オス') {
                 genderHtml = '<div class="gender-badge gender-male">♂</div>';
             } else if (g === '♀' || g === 'メス') {
                 genderHtml = '<div class="gender-badge gender-female">♀</div>';
             } else if (g === '♂♀' || g === '両性' || g === 'オス・メス') {
-                // ♂♀の場合は専用のスタイルを当てる
                 genderHtml = '<div class="gender-badge gender-both"><span style="color: #3498db;">♂</span><span style="color: #e74c3c">♀</span></div>';
             } else if (g === 'None' || g === '不明') {
-                // 不明の場合は専用のスタイルを当てる
                 genderHtml = '<div class="gender-badge gender-none">none</div>';
             }
 
             return `
                 <div class="card ${regClass}" onclick="showDetail('${s.uKey}')">
-                        ${genderHtml} ${s.isShiny ? '<span class="badge badge-s">Shiny</span>' : ''}
-                        <img src="${displayImg}" loading="lazy">
-                        <span class="no-text">No. ${s.id}</span>
+                    ${genderHtml} ${s.isShiny ? '<span class="badge badge-s">Shiny</span>' : ''}
+                    <img src="${displayImg}" loading="lazy">
+                    <span class="no-text">No. ${s.id}</span>
                     <span class="jp-name">${s.displayName}</span>
                     <div class="status-icons">
-                        <img src="${ICON_REG}" 
-                             class="icon-btn ${isReg ? '' : 'is-off'}" 
-                             onclick="event.stopPropagation(); toggleStatus('${s.uKey}', 'reg')" 
-                             title="図鑑登録">
-                        
-                        <img src="${ICON_OWN}" 
-                             class="icon-btn ${isDisabled ? 'is-disabled' : ''} ${isOff ? 'is-off' : ''}" 
-                             onclick="event.stopPropagation(); toggleStatus('${s.uKey}', 'own')" 
-                             title="${status}">
+                        <img src="${ICON_REG}" class="icon-btn ${isReg ? '' : 'is-off'}" onclick="event.stopPropagation(); toggleStatus('${s.uKey}', 'reg')" title="図鑑登録">
+                        <img src="${ICON_OWN}" class="icon-btn ${isDisabled ? 'is-disabled' : ''} ${isOff ? 'is-off' : ''}" onclick="event.stopPropagation(); toggleStatus('${s.uKey}', 'own')" title="${status}">
                     </div>
                 </div>
             `;
         }).join('');
+
         document.getElementById('status').innerText = `表示中: ${filtered.length}件`;
+        saveFilters();
     }
 
-    // 登録状況・所持状況の切り替え（スプシ送信）
+    function saveFilters() {
+        const currentSettings = {
+            gen: document.getElementById('filter-gen').value,
+            cat: document.getElementById('filter-cat').value,
+            soft: document.getElementById('filter-soft').value,
+            reg: document.getElementById('filter-reg').value,
+            own: document.getElementById('filter-own').value,
+            shiny: filters.shiny,
+            search: document.getElementById('search').value
+        };
+        localStorage.setItem('pokeFilterSettings', JSON.stringify(currentSettings));
+    }
+
     async function toggleStatus(uKey, type) {
         const target = allSprites.find(s => s.uKey === uKey);
         if (!target) return;
@@ -367,29 +350,22 @@
         let newValue = "";
 
         if (type === 'reg') {
-            // 図鑑登録の反転
             target.regStatus = !target.regStatus;
             newValue = target.regStatus ? "YES" : "NO";
             colName = target.isShiny ? "HOME 図鑑登録 (色違い)" : "HOME 図鑑登録";
         } else {
-            // 所持状況の反転
             if (target.ownStatus === "不可") return;
             target.ownStatus = (target.ownStatus === "所持") ? "未所持" : "所持";
             newValue = target.ownStatus;
             colName = target.isShiny ? "HOME 所持状況 (色違い)" : "HOME 所持状況";
         }
 
-        render(); // UIを先に更新
+        render();
 
-        // スプレッドシートへ送信
         try {
             await fetch(GAS_URL, {
                 method: "POST",
-                body: JSON.stringify({
-                    id: target.id,
-                    column: colName,
-                    value: newValue
-                })
+                body: JSON.stringify({ id: target.id, column: colName, value: newValue })
             });
         } catch (e) {
             console.error("保存失敗:", e);
@@ -417,10 +393,7 @@
             {n:'SV', v:check(s["実装 (SV)"])},
             {n:'Z-A', v:check(s["実装 (Z-A)"])}
         ];
-        const softHtml = softs.map(opt => 
-            `<span class="soft-badge ${opt.v ? 'active' : ''}" style="font-size: 12px; padding: 4px 8px; margin: 2px;">${opt.n}</span>`
-        ).join('');
-
+        const softHtml = softs.map(opt => `<span class="soft-badge ${opt.v ? 'active' : ''}" style="font-size: 12px; padding: 4px 8px; margin: 2px;">${opt.n}</span>`).join('');
         const detailImg = s.imgUrl || "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png";
 
         body.innerHTML = `
@@ -453,10 +426,36 @@
         render();
     }
 
+    function loadFilters() {
+        const saved = localStorage.getItem('pokeFilterSettings');
+        if (saved) {
+            const config = JSON.parse(saved);
+            document.getElementById('filter-gen').value = config.gen || 'all';
+            document.getElementById('filter-cat').value = config.cat || 'all';
+            document.getElementById('filter-soft').value = config.soft || 'all';
+            document.getElementById('filter-reg').value = config.reg || 'all';
+            document.getElementById('filter-own').value = config.own || 'all';
+            document.getElementById('search').value = config.search || '';
+            filters.shiny = config.shiny || false;
+            if (filters.shiny) document.getElementById('btn-shiny').classList.add('active-filter');
+        }
+    }
+
+    function resetFilters() {
+        document.getElementById('filter-gen').value = 'all';
+        document.getElementById('filter-cat').value = 'all';
+        document.getElementById('filter-soft').value = 'all';
+        document.getElementById('filter-reg').value = 'all';
+        document.getElementById('filter-own').value = 'all';
+        document.getElementById('search').value = '';
+        filters.shiny = false;
+        document.getElementById('btn-shiny').classList.remove('active-filter');
+        localStorage.removeItem('pokeFilterSettings');
+        render();
+    }
+
     document.getElementById('search').oninput = render;
     init();
 </script>
-
-
 </body>
 </html>
