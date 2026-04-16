@@ -183,6 +183,21 @@
             .nav-arrow { width: 30px; height: 30px; font-size: 16px; }
         }
 
+        .evolution-link {
+            color: var(--primary); /* テーマカラーに合わせる */
+            text-decoration: underline;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-block;
+            padding: 2px 5px;
+        }
+
+        .evolution-link:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            color: #ff4757; /* ホバー時の色を変えるなど */
+        }
+
 
     </style>
 </head>
@@ -482,13 +497,41 @@
 
 
     function showDetail(uKey) {
+        // 現在のインデックスを更新
         currentViewIndex = currentFilteredList.findIndex(item => item.uKey === uKey);
-        const s = currentFilteredList[currentViewIndex];
+    
+        // データ自体は全リスト(allSprites)から取得する
+        const s = allSprites.find(item => item.uKey === uKey); 
         if (!s) return;
 
         const modal = document.getElementById('detailModal');
         const body = document.getElementById('modal-body');
         
+        // --- 進化系のリンク作成（複数項目対応版） ---
+            let evolutionHtml = "ー";
+            if (s["進化系"] && s["進化系"] !== "ー") {
+                // カンマ（全角・半角両方）で分割して配列にする
+                const evoNames = s["進化系"].split(/[、,]\s*/);
+        
+                // それぞれの名前をリンク付きのHTMLに変換
+                const links = evoNames.map(name => {
+                    const trimmedName = name.trim();
+                    // 全データから、displayNameが一致するものを探す
+                    const target = allSprites.find(item => item.displayName === trimmedName);
+            
+                    if (target) {
+                        // 見つかった場合はクリック可能なリンクにする
+                        return `<span class="evolution-link" onclick="showDetail('${target.uKey}')">${trimmedName}</span>`;
+                    } else {
+                        // 見つからない場合はそのままのテキスト
+                        return trimmedName;
+                    }
+                });
+        
+                // 最後に「、」でつなぎ直す
+                evolutionHtml = links.join('、');
+            }
+
         document.getElementById('prev-btn').disabled = (currentViewIndex <= 0);
         document.getElementById('next-btn').disabled = (currentViewIndex >= currentFilteredList.length - 1);
 
@@ -523,7 +566,7 @@
             </div>
             <hr>
             <p><strong>進化方法：</strong><br>${s["進化方法"] || "情報なし"}</p>
-            <p><strong>進化系：</strong><br>${s["進化系"] || "ー"}</p>
+            <p><strong>進化系：</strong><br>${evolutionHtml}</p>
             <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
             <hr>
             <a href="${s["ポケ徹"]}" target="_blank" style="display:block; text-align:center; color:var(--primary); text-decoration:none; font-weight:bold; background:#eee; padding:10px; border-radius:10px;">🔗 ポケモン徹底攻略を見る</a>
