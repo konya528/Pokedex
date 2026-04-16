@@ -134,6 +134,56 @@
             justify-content: center;
             overflow: hidden;
         }
+
+        #modal-nav button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        #modal-nav button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        #modal-nav button:hover:not(:disabled) {
+            background-color: var(--primary) !important;
+            color: white;
+        }
+
+        .nav-arrow {
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            flex-shrink: 0; /* 潰れないように固定 */
+        }
+
+        .nav-arrow:hover:not(:disabled) {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-arrow:disabled {
+            opacity: 0; /* 押せない時は消してしまうのがスッキリします */
+            cursor: default;
+        }
+
+        /* スマホ等でボタンが邪魔な場合はサイズを調整 */
+        @media (max-width: 600px) {
+            .nav-arrow { width: 30px; height: 30px; font-size: 16px; }
+        }
+
+
     </style>
 </head>
 <body>
@@ -148,9 +198,9 @@
     <input type="text" id="search" class="search-box" placeholder="名前、番号、メモで検索...">
     
     <div class="filters">
-        <label>世代：
+        <label>
             <select id="filter-gen" onchange="render()">
-                <option value="all">すべて</option>
+                <option value="all">世代</option>
                 <option value="Gen1">第1世代</option><option value="Gen2">第2世代</option>
                 <option value="Gen3">第3世代</option><option value="Gen4">第4世代</option>
                 <option value="Gen5">第5世代</option><option value="Gen6">第6世代</option>
@@ -159,9 +209,9 @@
             </select>
         </label>
 
-        <label>カテゴリ：
+        <label>
             <select id="filter-cat" onchange="render()">
-                <option value="all">すべて</option>
+                <option value="all">カテゴリ</option>
                 <option value="デフォルト">デフォルト</option>
                 <option value="しゆうちがい">しゆうちがい</option>
                 <option value="すがたちがい">すがたちがい</option>
@@ -175,9 +225,9 @@
             </select>
         </label>
 
-        <label>実装ソフト：
+        <label>
             <select id="filter-soft" onchange="render()">
-                <option value="all">すべて</option>
+                <option value="all">実装ソフト</option>
                 <option value="実装 (GO)">GO</option>
                 <option value="実装 (ピカブイ)">ピカブイ</option>
                 <option value="実装 (剣盾)">剣盾</option>
@@ -188,17 +238,17 @@
             </select>
         </label>
 
-        <label>図鑑状況：
+        <label>
             <select id="filter-reg" onchange="render()">
-                <option value="all">すべて</option>
+                <option value="all">図鑑登録</option>
                 <option value="registered">登録済</option>
                 <option value="unregistered">未登録</option>
             </select>
         </label>
 
-        <label>所持状況：
+        <label>
             <select id="filter-own" onchange="render()">
-                <option value="all">すべて</option>
+                <option value="all">所持状況</option>
                 <option value="所持">所持</option>
                 <option value="未所持">未所持</option>
                 <option value="不可">不可</option>
@@ -216,7 +266,15 @@
 <div id="detailModal" class="modal" onclick="closeModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
         <span class="close-btn" onclick="document.getElementById('detailModal').style.display='none'">×</span>
-        <div id="modal-body"></div>
+        
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+            <button id="prev-btn" class="nav-arrow" onclick="navDetail(-1)">&#10094;</button>
+            
+            <div id="modal-body" style="flex: 1;">
+                </div>
+            
+            <button id="next-btn" class="nav-arrow" onclick="navDetail(1)">&#10095;</button>
+        </div>
     </div>
 </div>
 
@@ -226,6 +284,8 @@
     const ICON_OWN = "image-assets/icon_own.png";
 
     let allSprites = [];
+    let currentFilteredList = []; // 現在表示中のリストを保持
+    let currentViewIndex = -1;    // 現在モーダルで開いているポケモンのインデックス
     let filters = { shiny: false };
 
     async function init() {
@@ -324,6 +384,8 @@
             return matchQuery && matchGen && matchSoft && matchReg && matchShiny && matchCategory && matchOwn;
         });
 
+        currentFilteredList = filtered;
+
         gallery.innerHTML = filtered.map(s => {
             const isReg = s.regStatus;
             const status = s.ownStatus ? String(s.ownStatus).trim() : "";
@@ -408,11 +470,28 @@
         }
     }
 
+    function navDetail(direction) {
+        const newIndex = currentViewIndex + direction;
+    
+        // リストの範囲内であれば新しいポケモンを表示
+        if (newIndex >= 0 && newIndex < currentFilteredList.length) {
+            showDetail(currentFilteredList[newIndex].uKey);
+        }
+    }
+
+
+
     function showDetail(uKey) {
-        const s = allSprites.find(item => item.uKey === uKey);
+        currentViewIndex = currentFilteredList.findIndex(item => item.uKey === uKey);
+        const s = currentFilteredList[currentViewIndex];
+        if (!s) return;
+
         const modal = document.getElementById('detailModal');
         const body = document.getElementById('modal-body');
         
+        document.getElementById('prev-btn').disabled = (currentViewIndex <= 0);
+        document.getElementById('next-btn').disabled = (currentViewIndex >= currentFilteredList.length - 1);
+
         const check = (val) => {
             if (!val) return false;
             const str = String(val).trim().toUpperCase();
@@ -491,6 +570,23 @@
 
     document.getElementById('search').oninput = render;
     init();
+
+    document.addEventListener('keydown', (e) => {
+        // モーダルが表示されている時だけ反応させる
+        const modal = document.getElementById('detailModal');
+        if (modal.style.display === 'flex') {
+            if (e.key === 'ArrowLeft') {
+                navDetail(-1);
+            } else if (e.key === 'ArrowRight') {
+                navDetail(1);
+            } else if (e.key === 'Escape') {
+                modal.style.display = 'none';
+            }
+        }
+    });
+
+
+
 </script>
 </body>
 </html>
