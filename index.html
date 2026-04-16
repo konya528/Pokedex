@@ -532,6 +532,27 @@
                 evolutionHtml = links.join('、');
             }
 
+        // --- すがた違いのリンク作成（複数項目対応版） ---
+            let variationsHtml = "ー";
+            if (s["すがた違い"] && s["すがた違い"] !== "ー") {
+                // カンマで分割
+                const varNames = s["すがた違い"].split(/[、,]\s*/);
+        
+                const varLinks = varNames.map(name => {
+                    const trimmedName = name.trim();
+                    // 全データから一致するものを探す（通常色優先）
+                    // isShiny: false を条件に入れることで、リンク先が色違いにならないようにします
+                    const target = allSprites.find(item => item.displayName === trimmedName && !item.isShiny);
+            
+                    if (target) {
+                        return `<span class="evolution-link" onclick="showDetail('${target.uKey}')">${trimmedName}</span>`;
+                    } else {
+                        return trimmedName;
+                    }
+                });
+                variationsHtml = varLinks.join('、');
+            }
+
         document.getElementById('prev-btn').disabled = (currentViewIndex <= 0);
         document.getElementById('next-btn').disabled = (currentViewIndex >= currentFilteredList.length - 1);
 
@@ -554,23 +575,24 @@
         const detailImg = s.imgUrl || "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png";
 
         body.innerHTML = `
-            <div style="text-align:center;">
-                <img src="${detailImg}" style="width:150px; height:150px; object-fit:contain;">
-                <h2>${s.displayName} <small>(No.${s.id})</small></h2>
-            </div>
-            <p><strong>カテゴリ：</strong> ${s["カテゴリ"]}</p>
-            <p><strong>世代：</strong> ${s["世代"]}</p>
-            <div style="margin: 15px 0;">
-                <strong>実装ソフト：</strong>
-                <div class="soft-icons" style="justify-content: flex-start; margin-top: 5px;">${softHtml}</div>
-            </div>
-            <hr>
-            <p><strong>進化方法：</strong><br>${s["進化方法"] || "情報なし"}</p>
-            <p><strong>進化系：</strong><br>${evolutionHtml}</p>
-            <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
-            <hr>
-            <a href="${s["ポケ徹"]}" target="_blank" style="display:block; text-align:center; color:var(--primary); text-decoration:none; font-weight:bold; background:#eee; padding:10px; border-radius:10px;">🔗 ポケモン徹底攻略を見る</a>
-        `;
+                <div style="text-align:center;">
+                    <img src="${detailImg}" style="width:150px; height:150px; object-fit:contain;">
+                    <h2>${s.displayName} <small>(No.${s.id})</small></h2>
+                </div>
+                <p><strong>カテゴリ：</strong> ${s["カテゴリ"]}</p>
+                <p><strong>世代：</strong> ${s["世代"]}</p>
+                <div style="margin: 15px 0;">
+                    <strong>実装ソフト：</strong>
+                    <div class="soft-icons" style="justify-content: flex-start; margin-top: 5px;">${softHtml}</div>
+                </div>
+                <hr>
+                <p><strong>進化方法：</strong><br>${s["進化方法"] || "情報なし"}</p>
+                <p><strong>進化系：</strong><br>${evolutionHtml}</p>
+                <p><strong>すがた違い：</strong><br>${variationsHtml}</p> <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
+                <hr>
+                <a href="${s["ポケ徹"]}" target="_blank" style="display:block; text-align:center; color:var(--primary); text-decoration:none; font-weight:bold; background:#eee; padding:10px; border-radius:10px;">🔗 ポケモン徹底攻略を見る</a>
+            `;
+
         modal.style.display = "flex";
     }
 
