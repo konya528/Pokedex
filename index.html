@@ -232,6 +232,37 @@
             object-fit: contain;
         }
 
+        .modal-shiny-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 5px 10px;
+            font-size: 11px;
+            border-radius: 15px;
+            border: 1px solid #ccc;
+            background: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .modal-shiny-btn.active {
+            background: #f1c40f; /* 金色 */
+            color: #fff;
+            border-color: #f1c40f;
+            box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
+        }
+
+        .poke-link {
+            display:block; 
+            text-align:center; 
+            color:var(--primary); 
+            text-decoration:none; 
+            font-weight:bold; 
+            background:#eee; 
+            padding:10px; 
+            border-radius:10px;
+        }
+
 
     </style>
 </head>
@@ -336,6 +367,7 @@
     let currentFilteredList = []; // 現在表示中のリストを保持
     let currentViewIndex = -1;    // 現在モーダルで開いているポケモンのインデックス
     let filters = { shiny: false };
+    let isModalShiny = false;
 
     async function init() {
         const status = document.getElementById('status');
@@ -527,89 +559,97 @@
         }
     }
 
-
-
     function showDetail(uKey) {
-        // 現在のインデックスを更新
-        currentViewIndex = currentFilteredList.findIndex(item => item.uKey === uKey);
+        // 開く瞬間のuKeyから、最初は通常色か色違いかを判断する
+        const targetSprite = allSprites.find(item => item.uKey === uKey);
+        if (!targetSprite) return;
     
-        // データ自体は全リスト(allSprites)から取得する
-        const s = allSprites.find(item => item.uKey === uKey); 
+        isModalShiny = targetSprite.isShiny; // 開いた個体に合わせて初期状態をセット
+        currentViewIndex = currentFilteredList.findIndex(item => item.uKey === uKey);
+
+        renderModalContent(uKey); // 描画処理を別関数に切り出すと管理しやすくなります
+    }
+
+    // モーダルの内容を更新する専用の関数
+    function renderModalContent(uKey) {
+        const s = allSprites.find(item => item.uKey === uKey);
         if (!s) return;
 
         const modal = document.getElementById('detailModal');
         const body = document.getElementById('modal-body');
-        
-        // --- リンク作成（画像表示版）の共通ロジック ---
-            const createIconLink = (namesString) => {
-                if (!namesString || namesString === "ー") return "ー";
-        
-                const names = namesString.split(/[、,]\s*/);
-                const links = names.map(name => {
-                    const trimmedName = name.trim();
-                    // 通常色のデータから画像URLを取得
-                    const target = allSprites.find(item => item.displayName === trimmedName && !item.isShiny);
+
+        const softs = ["GO", "ピカブイ", "剣盾", "BDSP", "アルセウス", "SV", "Z-A"];
+        const softHtml = softs.map(name => {
+            const key = `実装 (${name})`;
+            const val = s[key];
+            // YES か TRUE ならアクティブ（実装済み）と判定
+            const isActive = val && (String(val).trim().toUpperCase() === "YES" || String(val).trim() === "TRUE");
+            return `<span class="soft-badge ${isActive ? 'active' : ''}">${name}</span>`;
+        }).join('');
+
+        // --- リンク作成関数の定義（モーダル内の状態 isModalShiny を反映） ---
+        const createIconLink = (namesString) => {
+            if (!namesString || namesString === "ー") return "ー";
+            const names = namesString.split(/[、,]\s*/);
+            const links = names.map(name => {
+                const trimmedName = name.trim();
+                // モーダルが色違いモードなら、進化先も色違いを探す。なければ通常色。
+                const target = allSprites.find(item => item.displayName === trimmedName && item.isShiny === isModalShiny) 
+                            || allSprites.find(item => item.displayName === trimmedName && !item.isShiny);
             
-                    if (target && target.imgUrl) {
-                        // 画像を表示し、title属性でマウスホバー時に名前を出す
-                        return `
-                            <div class="mini-link-item" onclick="showDetail('${target.uKey}')" title="${trimmedName}">
-                                <img src="${target.imgUrl}" class="mini-evo-img">
-                            </div>`;
-                    } else {
-                        // 画像がない場合は名前をテキストで出す
-                        return `<span class="evolution-link" onclick="showDetail('${target?.uKey || ""}')">${trimmedName}</span>`;
-                    }
-                });
-                return `<div class="mini-link-container">${links.join('')}</div>`;
-            };
+                if (target && target.imgUrl) {
+                    return `
+                        <div class="mini-link-item" onclick="showDetail('${target.uKey}')" title="${trimmedName}">
+                            <img src="${target.imgUrl}" class="mini-evo-img">
+                        </div>`;
+                }
+                return `<span class="evolution-link" onclick="showDetail('${target?.uKey || ""}')">${trimmedName}</span>`;
+            }).join('');
+            return `<div class="mini-link-container">${links}</div>`;
+        };
 
-            // 変数に代入
-            let evolutionHtml = createIconLink(s["進化系"]);
-            let variationsHtml = createIconLink(s["すがた違い"]);
+        const evolutionHtml = createIconLink(s["進化系"]);
+        const variationsHtml = createIconLink(s["すがた違い"]);
 
-
+        // ボタンの無効化処理
         document.getElementById('prev-btn').disabled = (currentViewIndex <= 0);
         document.getElementById('next-btn').disabled = (currentViewIndex >= currentFilteredList.length - 1);
 
-        const check = (val) => {
-            if (!val) return false;
-            const str = String(val).trim().toUpperCase();
-            return str === "YES" || str === "TRUE";
-        };
+        // 表示する画像の決定
+        const displayImg = isModalShiny ? (s["画像 (色違い)"] || s.imgUrl) : (s["画像"] || s.imgUrl);
 
-        const softs = [
-            {n:'GO', v:check(s["実装 (GO)"])},
-            {n:'ピカブイ', v:check(s["実装 (ピカブイ)"])},
-            {n:'剣盾', v:check(s["実装 (剣盾)"])},
-            {n:'BDSP', v:check(s["実装 (BDSP)"])},
-            {n:'アルセウス', v:check(s["実装 (アルセウス)"])},
-            {n:'SV', v:check(s["実装 (SV)"])},
-            {n:'Z-A', v:check(s["実装 (Z-A)"])}
-        ];
-        const softHtml = softs.map(opt => `<span class="soft-badge ${opt.v ? 'active' : ''}" style="font-size: 12px; padding: 4px 8px; margin: 2px;">${opt.n}</span>`).join('');
-        const detailImg = s.imgUrl || "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png";
-
+        // モーダルの中身を書き換え
         body.innerHTML = `
-                <div style="text-align:center;">
-                    <img src="${detailImg}" style="width:150px; height:150px; object-fit:contain;">
-                    <h2>${s.displayName} <small>(No.${s.id})</small></h2>
-                </div>
-                <p><strong>カテゴリ：</strong> ${s["カテゴリ"]}</p>
-                <p><strong>世代：</strong> ${s["世代"]}</p>
-                <div style="margin: 15px 0;">
-                    <strong>実装ソフト：</strong>
-                    <div class="soft-icons" style="justify-content: flex-start; margin-top: 5px;">${softHtml}</div>
-                </div>
-                <hr>
-                <p><strong>進化方法：</strong><br>${s["進化方法"] || "情報なし"}</p>
-                <p><strong>進化系：</strong><br>${evolutionHtml}</p>
-                <p><strong>すがた違い：</strong><br>${variationsHtml}</p> <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
-                <hr>
-                <a href="${s["ポケ徹"]}" target="_blank" style="display:block; text-align:center; color:var(--primary); text-decoration:none; font-weight:bold; background:#eee; padding:10px; border-radius:10px;">🔗 ポケモン徹底攻略を見る</a>
-            `;
-
+            <div style="text-align:center; position:relative;">
+                <button onclick="toggleModalShiny('${s.uKey}')" class="modal-shiny-btn ${isModalShiny ? 'active' : ''}">
+                    色違いモード
+                </button>
+                <img src="${displayImg}" style="width:150px; height:150px; object-fit:contain;">
+                <h2>${s.displayName} <small>(No.${s.id})</small></h2>
+            </div>
+            <p><strong>カテゴリ：</strong> ${s["カテゴリ"]}</p>
+            <p><strong>世代：</strong> ${s["世代"]}</p>
+            <div style="margin: 15px 0;">
+                <strong>実装ソフト：</strong>
+                <div class="soft-icons" style="justify-content: flex-start; margin-top: 5px;">${softHtml}</div>
+            </div>
+            <hr>
+            <p><strong>進化系：</strong><br>${evolutionHtml}</p>
+            <p><strong>すがた違い：</strong><br>${variationsHtml}</p>
+            <hr>
+            <p><strong>進化方法：</strong><br>${s["進化方法"] || "情報なし"}</p>
+            <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
+            <hr>
+            <a href="${s["ポケ徹"]}" target="_blank" class="poke-link">🔗 ポケモン徹底攻略を見る</a>
+        `;
         modal.style.display = "flex";
+    }
+
+    // モーダル内の色違いをトグルする関数
+    function toggleModalShiny(currentUKey) {
+        isModalShiny = !isModalShiny;
+        // 状態を変えて再描画
+        renderModalContent(currentUKey);
     }
 
     function closeModal(e) { if(e.target.id === 'detailModal') e.target.style.display = 'none'; }
