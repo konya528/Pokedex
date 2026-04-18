@@ -318,7 +318,6 @@
             sheetData.forEach(item => {
                 const id = item["全国図鑑No"]; 
                 const name = item["名前"] || "";
-                const cleanName = name.replace(/[♂♀]/g, "");
                 const genderVal = item["性別"] ? String(item["性別"]).trim() : "";
 
                 // 通常色
@@ -327,7 +326,7 @@
                     id: id,
                     uKey: `${id}_${name}_normal`,
                     isShiny: false,
-                    displayName: cleanName,
+                    displayName: name,
                     gender: genderVal,
                     imgUrl: item["画像"] || "", 
                     regStatus: (String(item["HOME 図鑑登録"]).trim().toUpperCase() === "YES"),
@@ -340,7 +339,7 @@
                     id: id,
                     uKey: `${id}_${name}_shiny`,
                     isShiny: true,
-                    displayName: cleanName,
+                    displayName: name,
                     gender: genderVal,
                     imgUrl: item["画像 (色違い)"] || "", 
                     regStatus: (String(item["HOME 図鑑登録 (色違い)"]).trim().toUpperCase() === "YES"),
@@ -566,8 +565,8 @@
             {n:'GO', v:check(s["実装 (GO)"])},
             {n:'ピカブイ', v:check(s["実装 (ピカブイ)"])},
             {n:'剣盾', v:check(s["実装 (剣盾)"])},
-            {n:'アルセウス', v:check(s["実装 (アルセウス)"])},
             {n:'BDSP', v:check(s["実装 (BDSP)"])},
+            {n:'アルセウス', v:check(s["実装 (アルセウス)"])},
             {n:'SV', v:check(s["実装 (SV)"])},
             {n:'Z-A', v:check(s["実装 (Z-A)"])}
         ];
