@@ -198,6 +198,40 @@
             color: #ff4757; /* ホバー時の色を変えるなど */
         }
 
+        /* アイコンを並べるコンテナ */
+        .mini-link-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        /* 各画像アイテムの枠 */
+        .mini-link-item {
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            border-radius: 8px;
+            background: #f8f9fa;
+            padding: 4px;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mini-link-item:hover {
+            transform: scale(1.1);
+            background: #e9ecef;
+            border-color: var(--accent);
+        }
+
+        /* ミニ画像のサイズ調整 */
+        .mini-evo-img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
 
     </style>
 </head>
@@ -506,51 +540,34 @@
         const modal = document.getElementById('detailModal');
         const body = document.getElementById('modal-body');
         
-        // --- 進化系のリンク作成（複数項目対応版） ---
-            let evolutionHtml = "ー";
-            if (s["進化系"] && s["進化系"] !== "ー") {
-                // カンマ（全角・半角両方）で分割して配列にする
-                const evoNames = s["進化系"].split(/[、,]\s*/);
+        // --- リンク作成（画像表示版）の共通ロジック ---
+            const createIconLink = (namesString) => {
+                if (!namesString || namesString === "ー") return "ー";
         
-                // それぞれの名前をリンク付きのHTMLに変換
-                const links = evoNames.map(name => {
+                const names = namesString.split(/[、,]\s*/);
+                const links = names.map(name => {
                     const trimmedName = name.trim();
-                    // 全データから、displayNameが一致するものを探す
-                    const target = allSprites.find(item => item.displayName === trimmedName);
-            
-                    if (target) {
-                        // 見つかった場合はクリック可能なリンクにする
-                        return `<span class="evolution-link" onclick="showDetail('${target.uKey}')">${trimmedName}</span>`;
-                    } else {
-                        // 見つからない場合はそのままのテキスト
-                        return trimmedName;
-                    }
-                });
-        
-                // 最後に「、」でつなぎ直す
-                evolutionHtml = links.join('、');
-            }
-
-        // --- すがた違いのリンク作成（複数項目対応版） ---
-            let variationsHtml = "ー";
-            if (s["すがた違い"] && s["すがた違い"] !== "ー") {
-                // カンマで分割
-                const varNames = s["すがた違い"].split(/[、,]\s*/);
-        
-                const varLinks = varNames.map(name => {
-                    const trimmedName = name.trim();
-                    // 全データから一致するものを探す（通常色優先）
-                    // isShiny: false を条件に入れることで、リンク先が色違いにならないようにします
+                    // 通常色のデータから画像URLを取得
                     const target = allSprites.find(item => item.displayName === trimmedName && !item.isShiny);
             
-                    if (target) {
-                        return `<span class="evolution-link" onclick="showDetail('${target.uKey}')">${trimmedName}</span>`;
+                    if (target && target.imgUrl) {
+                        // 画像を表示し、title属性でマウスホバー時に名前を出す
+                        return `
+                            <div class="mini-link-item" onclick="showDetail('${target.uKey}')" title="${trimmedName}">
+                                <img src="${target.imgUrl}" class="mini-evo-img">
+                            </div>`;
                     } else {
-                        return trimmedName;
+                        // 画像がない場合は名前をテキストで出す
+                        return `<span class="evolution-link" onclick="showDetail('${target?.uKey || ""}')">${trimmedName}</span>`;
                     }
                 });
-                variationsHtml = varLinks.join('、');
-            }
+                return `<div class="mini-link-container">${links.join('')}</div>`;
+            };
+
+            // 変数に代入
+            let evolutionHtml = createIconLink(s["進化系"]);
+            let variationsHtml = createIconLink(s["すがた違い"]);
+
 
         document.getElementById('prev-btn').disabled = (currentViewIndex <= 0);
         document.getElementById('next-btn').disabled = (currentViewIndex >= currentFilteredList.length - 1);
