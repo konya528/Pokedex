@@ -506,7 +506,8 @@
         const filtered = allSprites.filter(s => {
             const name = String(s["名前"] || "").toLowerCase();
             const memo = String(s["メモ"] || "").toLowerCase();
-            const matchQuery = name.includes(query) || String(s.id).includes(query) || memo.includes(query);
+            const remarks = String(s["備考"] || "").toLowerCase();
+            const matchQuery = name.includes(query) || String(s.id).includes(query) || memo.includes(query) || remarks.includes(query);
             const matchGen = genFilter === 'all' || String(s["世代"]).includes(genFilter);
             
             const checkYes = (val) => {
@@ -705,7 +706,7 @@
             <p><strong>すがた違い：</strong><br>${variationsHtml}</p>
             <hr>
             <p><strong>進化方法：</strong><br>${s["進化方法"] || "情報なし"}</p>
-            <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
+            <p><strong>備考：</strong><br>${s["備考"] || "ー"}</p>  <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
             <hr>
             <a href="${s["ポケ徹"]}" target="_blank" class="poke-link">🔗 ポケモン徹底攻略を見る</a>
         `;
