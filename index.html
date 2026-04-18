@@ -643,6 +643,14 @@
         const s = allSprites.find(item => item.uKey === uKey);
         if (!s) return;
 
+        let baseName = s.displayName;
+        let formName = "";
+        const match = s.displayName.match(/(.+?)（(.+?)）/);
+        if (match) {
+            baseName = match[1];
+            formName = match[2];
+        }
+
         const modal = document.getElementById('detailModal');
         const body = document.getElementById('modal-body');
 
@@ -693,10 +701,17 @@
                     色違いモード
                 </button>
                 <img src="${displayImg}" style="width:150px; height:150px; object-fit:contain;">
-                <h2>${s.displayName} <small>(No.${s.id})</small></h2>
+                
+                <div style="margin: 10px 0;">
+                    <div style="color:var(--primary); font-weight: bold;">No.${s.id}</div>
+                    <h2 style="margin: 5px 0;">${baseName}</h2>
+                    ${formName ? `<div style="font-weight:bold; color:#7f8c8d; font-size:1.1em; margin-bottom:10px;">${formName}</div>` : ''}
+                </div>
             </div>
+            
             <p><strong>カテゴリ：</strong> ${s["カテゴリ"]}</p>
             <p><strong>世代：</strong> ${s["世代"]}</p>
+            
             <div style="margin: 15px 0;">
                 <strong>実装ソフト：</strong>
                 <div class="soft-icons" style="justify-content: flex-start; margin-top: 5px;">${softHtml}</div>
@@ -706,7 +721,8 @@
             <p><strong>すがた違い：</strong><br>${variationsHtml}</p>
             <hr>
             <p><strong>進化方法：</strong><br>${s["進化方法"] || "情報なし"}</p>
-            <p><strong>備考：</strong><br>${s["備考"] || "ー"}</p>  <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
+            <p><strong>備考：</strong><br>${s["備考"] || "ー"}</p>
+            <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
             <hr>
             <a href="${s["ポケ徹"]}" target="_blank" class="poke-link">🔗 ポケモン徹底攻略を見る</a>
         `;
