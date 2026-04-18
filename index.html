@@ -11,11 +11,16 @@
         .filters { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; align-items: center; }
         button, select { padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; background: white; cursor: pointer; font-size: 13px; outline: none; }
         .btn-main { background: var(--primary); color: white; border: none; }
-        .active-filter { background: #e67e22 !important; color: white !important; }
+        .active-filter { background: #e67e22 !important; }
         .container { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 15px; margin-top: 20px; max-width: 1400px; margin-left: auto; margin-right: auto; }
         .card { background: white; border-radius: 15px; padding: 12px; width: 140px; transition: 0.2s; position: relative; cursor: pointer; display: flex; flex-direction: column; align-items: center; border: 2px solid transparent; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
-        
+
+        .active-filter {
+            border: 1px solid #e67e22 !important; /* 枠線を強調 */
+            background-color: #fff !important;     /* 背景は白のまま維持 */
+        }
+
         /* 登録状況の視覚化 */
         .card.is-registered { border-color: var(--accent) !important; opacity: 1; filter: grayscale(0%); }
         .card.unregistered { opacity: 0.5; filter: grayscale(80%); }
@@ -52,8 +57,8 @@
             z-index: 110;  /* 性別マークより上にくるように設定 */
             pointer-events: none; /* クリックの邪魔をしない */
         }
-        .soft-icons { display: flex; gap: 2px; margin-top: 5px; flex-wrap: wrap; justify-content: center; }
-        .soft-badge { font-size: 8px; padding: 1px 4px; border-radius: 3px; background: #eee; color: #777; font-weight: bold; }
+        .soft-icons { display: flex; gap: 3px; margin-top: 5px; flex-wrap: wrap; justify-content: center; }
+        .soft-badge { font-size: 12px; padding: 1px 6px 3px 6px; border-radius: 3px; background: #eee; color: #777; font-weight: bold; }
         .soft-badge.active { background: #34495e; color: white; }
 
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; }
@@ -427,6 +432,17 @@
     }
 
     function render() {
+    
+        const filterIds = ['filter-gen', 'filter-cat', 'filter-soft', 'filter-reg', 'filter-own'];
+        filterIds.forEach(id => {
+            const select = document.getElementById(id);
+            if (select.value !== 'all') {
+                select.classList.add('active-filter');
+            } else {
+                select.classList.remove('active-filter');
+            }
+        });
+
         const query = document.getElementById('search').value.toLowerCase();
         const genFilter = document.getElementById('filter-gen').value;
         const softFilter = document.getElementById('filter-soft').value;
@@ -435,7 +451,7 @@
         const ownFilter = document.getElementById('filter-own').value;
 
         const gallery = document.getElementById('gallery');
-        
+
         const filtered = allSprites.filter(s => {
             const name = String(s["名前"] || "").toLowerCase();
             const memo = String(s["メモ"] || "").toLowerCase();
