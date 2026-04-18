@@ -402,7 +402,7 @@
 </div>
 
 <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbyrvdb8OfjjeNQ5GPxqZusOOm2r9BnQ8gTQXyFAzDfiOZNh47D3LnV2uh1r-ftNo5Dk/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbwtOPWJ4wj4-XaIcxcLF5c83rb7O5vBH-nr-G0OVE6r6zpvOuGZStMRvJMUlI1kxRZg/exec";
     const ICON_REG = "image-assets/icon_reg.png";
     const ICON_OWN = "image-assets/icon_own.png";
 
@@ -748,12 +748,48 @@
             <hr>
             <p><strong>進化方法：</strong><br>${s["進化方法"] || "情報なし"}</p>
             <p><strong>備考：</strong><br>${s["備考"] || "ー"}</p>
-            <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
+            <p><strong>メモ：</strong></p>
+            <textarea 
+                onchange="updateMemo('${s.uKey}', this.value)"
+                style="width:100%; height:80px; padding:5px; box-sizing:border-box; border:1px solid #ccc; border-radius:4px;"
+            >${s["メモ"] || ""}</textarea>
             <hr>
             <a href="${s["ポケ徹"]}" target="_blank" class="poke-link">🔗 ポケモン徹底攻略を見る</a>
         `;
         modal.style.display = "flex";
     }
+
+    async function updateMemo(uKey, newValue) {
+    // 1. ローカルデータを更新（即時反映）
+    const item = allSprites.find(i => i.uKey === uKey);
+    if (item) {
+        item["メモ"] = newValue;
+    }
+
+    // 2. スプレッドシートへ同期（API呼び出し）
+    // ※以下はGoogle Apps ScriptをWebアプリとして公開している場合の例です
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwtOPWJ4wj4-XaIcxcLF5c83rb7O5vBH-nr-G0OVE6r6zpvOuGZStMRvJMUlI1kxRZg/exec';
+    
+    try {
+        const response = await fetch(GAS_URL, {
+            method: 'POST',
+            // mode: 'no-cors', // これを削除
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                uKey: uKey, // uKeyを送る
+                column: 'メモ',
+                value: newValue
+            })
+        });
+        
+        const result = await response.json(); // レスポンスを受け取る
+        console.log("同期成功:", result);
+    } catch (error) {
+        console.error("同期失敗:", error);
+        alert("同期に失敗しました。詳細はコンソールを確認してください。");
+    }
+}
+
 
     // モーダル内の色違いをトグルする関数
     function toggleModalShiny(currentUKey) {
