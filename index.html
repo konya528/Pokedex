@@ -643,6 +643,12 @@
         const s = allSprites.find(item => item.uKey === uKey);
         if (!s) return;
 
+        const isReg = s.regStatus;
+        const status = s.ownStatus ? String(s.ownStatus).trim() : "";
+        const isDisabled = status === "不可";
+        const isOff = status === "未所持";
+
+
         let baseName = s.displayName;
         let formName = "";
         const match = s.displayName.match(/(.+?)（(.+?)）/);
@@ -716,28 +722,34 @@
                 <img src="${displayImg}" style="width:150px; height:150px; object-fit:contain;">
                 
                 <div style="margin: 10px 0;">
-                    <div style="color:var(--primary); font-weight: bold;">No.${s.id}</div>
-                    <h2 style="margin: 5px 0;">${baseName}</h2>
-                    ${formName ? `<div style="font-weight:bold; color:#7f8c8d; font-size:1.1em; margin-bottom:10px;">${formName}</div>` : ''}
-                    ${genderHtml}
+                    <div style="color: #7f8c8d; font-weight: bold;">No.${s.id}</div>
+                    <h2 style="margin: 5px 0; display:inline-block;">${baseName}</h2>${genderHtml}
+                    ${formName ? `<div style="font-weight:bold; color:var(--primary); font-size:1.1em; margin-bottom:10px;">${formName}</div>` : ''}
                 </div>
-            </div>
+
+                <div class="status-icons" style="justify-content: center; margin: 15px 0; gap: 10px; display: flex;">
+                    <img src="${ICON_REG}" class="icon-btn ${isReg ? '' : 'is-off'}" 
+                         onclick="toggleStatus('${s.uKey}', 'reg'); renderModalContent('${s.uKey}');" title="図鑑登録">
+                    <img src="${ICON_OWN}" class="icon-btn ${isDisabled ? 'is-disabled' : ''} ${isOff ? 'is-off' : ''}" 
+                         onclick="toggleStatus('${s.uKey}', 'own'); renderModalContent('${s.uKey}');" title="${status}">
+                </div>
+                </div>
             
-            <p><strong>カテゴリ</strong> ${s["カテゴリ"]}</p>
-            <p><strong>世代</strong> ${s["世代"]}</p>
+            <p><strong>カテゴリ：</strong> ${s["カテゴリ"]}</p>
+            <p><strong>世代：</strong> ${s["世代"]}</p>
             
             <div style="margin: 15px 0;">
-                <strong>実装ソフト</strong>
+                <strong>実装ソフト：</strong>
                 <div class="soft-icons" style="justify-content: flex-start; margin-top: 5px;">${softHtml}</div>
             </div>
             <hr>
-            <p><strong>進化方法</strong><br>${s["進化方法"] || "情報なし"}</p>
-            <p><strong>備考</strong><br>${s["備考"] || "ー"}</p>
-            <p><strong>メモ</strong><br>${s["メモ"] || "ー"}</p>
+            <p><strong>進化系：</strong><br>${evolutionHtml}</p>
+            <p><strong>すがた違い：</strong><br>${variationsHtml}</p>
             <hr>
-            <p><strong>進化系</strong><br>${evolutionHtml}</p>
-            <p><strong>すがた違い</strong><br>${variationsHtml}</p>
-            
+            <p><strong>進化方法：</strong><br>${s["進化方法"] || "情報なし"}</p>
+            <p><strong>備考：</strong><br>${s["備考"] || "ー"}</p>
+            <p><strong>メモ：</strong><br>${s["メモ"] || "ー"}</p>
+            <hr>
             <a href="${s["ポケ徹"]}" target="_blank" class="poke-link">🔗 ポケモン徹底攻略を見る</a>
         `;
         modal.style.display = "flex";
