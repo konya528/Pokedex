@@ -402,7 +402,7 @@
 </div>
 
 <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbwtOPWJ4wj4-XaIcxcLF5c83rb7O5vBH-nr-G0OVE6r6zpvOuGZStMRvJMUlI1kxRZg/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzsz17Ykao0HuEbwmkxFAiAQ3CHxhtxs7xHB36LZBLBsyg3S2beiFs8hStAZo0Jy2k-/exec";
     const ICON_REG = "image-assets/icon_reg.png";
     const ICON_OWN = "image-assets/icon_own.png";
 
@@ -768,25 +768,25 @@
 
     // 2. スプレッドシートへ同期（API呼び出し）
     // ※以下はGoogle Apps ScriptをWebアプリとして公開している場合の例です
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwtOPWJ4wj4-XaIcxcLF5c83rb7O5vBH-nr-G0OVE6r6zpvOuGZStMRvJMUlI1kxRZg/exec';
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbzsz17Ykao0HuEbwmkxFAiAQ3CHxhtxs7xHB36LZBLBsyg3S2beiFs8hStAZo0Jy2k-/exec';
     
+
+    const params = new URLSearchParams();
+    params.append('uKey', uKey);
+    params.append('column', 'メモ'); // ここは必要に応じて調整
+    params.append('value', newValue);
+
+
     try {
         const response = await fetch(GAS_URL, {
             method: 'POST',
-            // mode: 'no-cors', // これを削除
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                uKey: uKey, // uKeyを送る
-                column: 'メモ',
-                value: newValue
-            })
+            body: params
         });
         
-        const result = await response.json(); // レスポンスを受け取る
+        const result = await response.json();
         console.log("同期成功:", result);
     } catch (error) {
         console.error("同期失敗:", error);
-        alert("同期に失敗しました。詳細はコンソールを確認してください。");
     }
 }
 
