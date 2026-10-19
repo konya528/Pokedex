@@ -1,0 +1,155 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f8fa"><title>すべてのすがた図鑑</title><link rel="manifest" href="manifest.webmanifest"><style>
+:root{font-family:system-ui,-apple-system,'Noto Sans JP',sans-serif;color:#27313e;background:#f7f8fa}*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button{cursor:pointer}header{position:sticky;top:0;background:#ffffffed;backdrop-filter:blur(12px);border-bottom:1px solid #e7e9ef;z-index:3}.head{max-width:1200px;margin:auto;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}h1{font-size:19px;margin:0;letter-spacing:.02em}.sub{color:#83909e;font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid #dce1e8;background:white;border-radius:10px;padding:9px 13px;color:#374354}.btn.primary{background:#273e60;color:white;border-color:#273e60}main{max-width:1200px;margin:auto;padding:25px 20px}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}.toolbar input,.toolbar select{border:1px solid #e0e5eb;background:#fff;border-radius:11px;padding:12px;color:#344255;min-width:0}.toolbar input{flex:2;min-width:190px}.toolbar select{flex:1;min-width:120px}.summary{display:flex;justify-content:space-between;color:#84909e;font-size:13px;margin:0 2px 15px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:14px}.poke{border:1px solid #e9edf1;border-radius:15px;background:#fff;overflow:hidden;text-align:left;padding:0;transition:transform .12s,box-shadow .12s}.poke:hover{transform:translateY(-2px);box-shadow:0 8px 25px #1c2b4015}.art{height:145px;background:#f0f3f7;display:grid;place-items:center;position:relative}.art img{width:125px;height:125px;object-fit:contain;image-rendering:auto}.num{position:absolute;top:10px;left:11px;color:#95a1ae;font-size:11px;font-weight:700}.dot{position:absolute;top:11px;right:11px;border-radius:50%;height:10px;width:10px;background:#d6dce5}.dot.owned{background:#49ae88}.info{padding:12px}.name{font-size:13px;font-weight:700;min-height:38px;line-height:1.4}.meta{font-size:11px;color:#9ba5b2;margin-top:6px}.tag{display:inline-block;background:#f0f3f7;color:#738193;padding:4px 7px;border-radius:6px;font-size:10px;margin-top:8px}.empty{padding:60px 10px;text-align:center;color:#8592a0}.overlay{position:fixed;inset:0;background:#1a253b88;z-index:8;display:flex;align-items:center;justify-content:center;padding:20px}.modal{width:min(650px,100%);max-height:90vh;overflow:auto;border-radius:19px;background:white;padding:22px;box-shadow:0 20px 70px #17243a3d}.modal-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.modal h2{font-size:20px;margin:4px 0}.hero{display:flex;gap:20px;align-items:center;margin:18px 0}.heroimg{background:#f1f4f8;border-radius:15px;display:grid;place-items:center;min-width:175px;width:45%;height:205px}.heroimg img{max-width:95%;max-height:95%;object-fit:contain}.details{flex:1}.detail-line{font-size:13px;color:#697789;margin:8px 0}.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}.field label{display:block;font-size:11px;color:#758397;margin-bottom:7px}.field select{width:100%;border:1px solid #dce2e9;background:white;border-radius:9px;padding:10px 6px;font-size:12px}.section{border-top:1px solid #edf0f3;padding-top:15px;margin-top:16px}.section h3{font-size:13px;margin:0 0 10px}.related{display:flex;flex-wrap:wrap;gap:7px}.related button{border:1px solid #e1e6ec;background:#f9fafc;border-radius:8px;padding:7px 10px;font-size:12px;color:#536174}.notice{background:#fff8e7;border:1px solid #f5e6bc;border-radius:11px;padding:12px 14px;color:#826d39;font-size:12px;line-height:1.6;margin-bottom:20px}.help{font-size:12px;color:#7c8999;line-height:1.7}.toggle{display:flex;align-items:center;gap:6px;font-size:12px;color:#59687b}.foot{font-size:11px;color:#a0aab6;margin-top:30px;line-height:1.6}@media(max-width:600px){main{padding:17px 12px}.head{padding:12px}.head h1{font-size:16px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.art{height:105px}.art img{width:94px;height:94px}.info{padding:9px}.name{font-size:11px;min-height:46px}.meta{font-size:10px}.tag{font-size:9px}.hero{gap:12px}.heroimg{min-width:130px;height:155px}.fields{grid-template-columns:1fr}.actions .btn{padding:7px 9px;font-size:11px}}
+.heroimg{min-width:0;width:min(45%,250px);height:auto;aspect-ratio:1/1;flex:0 0 min(45%,250px);overflow:hidden}.heroimg img{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}.hero{align-items:center}.details{min-width:0}.detail-shiny{display:inline-flex;align-items:center;gap:7px;background:#f1f4f8;padding:8px 10px;border-radius:9px;font-size:12px;color:#536174;cursor:pointer}.related{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:9px}.related .related-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 5px;border:1px solid #e1e6ec;background:#f9fafc;border-radius:11px;color:#536174;min-width:0}.related .related-card:hover:not(:disabled){background:#eef3fa;border-color:#b8c9e0}.related .related-card:disabled{opacity:.5;cursor:default}.related-art{display:block;width:76px;height:76px;aspect-ratio:1/1;flex-shrink:0}.related-art img{display:block;width:100%;height:100%;object-fit:contain}.related-name{font-size:11px;text-align:center;overflow-wrap:anywhere;line-height:1.4}.related-art.missing{display:grid;place-items:center;color:#9aa6b5}.tag{margin-right:4px}@media(max-width:600px){.heroimg{min-width:0;width:42%;flex-basis:42%;height:auto}.related{grid-template-columns:repeat(auto-fill,minmax(90px,1fr))}.related-art{width:65px;height:65px}}
+.name .pokemon-name,.related-name .pokemon-name{display:block}.form-name{display:block;color:#8995a6;font-size:.82em;font-weight:500;line-height:1.45;margin-top:3px}.detail-title .pokemon-name{display:block}.detail-title .form-name{font-size:13px;margin-top:4px}.related-name{width:100%}.related-name .form-name{font-size:10px;overflow-wrap:anywhere}.name .form-name{font-size:11px}@media(max-width:600px){.name .form-name{font-size:10px}.detail-title .form-name{font-size:12px}}
+.status-icons{position:absolute;top:10px;right:10px;display:flex;align-items:center;gap:7px}.status-icon{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center}.status-icon img{width:16px;height:16px;display:block;filter:brightness(0) saturate(100%);opacity:.16}.status-icon.is-active img{filter:brightness(0) saturate(100%) invert(55%) sepia(34%) saturate(628%) hue-rotate(104deg) brightness(94%) contrast(91%);opacity:1}@media(max-width:600px){.status-icons{top:9px;right:8px;gap:5px}.status-icon,.status-icon img{width:14px;height:14px}}
+
+.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.field label{display:flex;align-items:center;gap:6px;min-height:20px}.field label .status-icon{flex:0 0 16px}.related-art{position:relative}.related-status{position:absolute;right:-3px;top:-3px;display:flex;gap:3px;padding:3px;border-radius:7px;background:#fffef0ee;box-shadow:0 1px 4px #17243a20}.related-status .status-icon,.related-status .status-icon img{width:13px;height:13px}@media(max-width:600px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.field label{font-size:10px}.related-status .status-icon,.related-status .status-icon img{width:12px;height:12px}}
+.switch-row{display:flex;align-items:center;gap:11px;width:100%;min-height:39px;background:#fff;border:1px solid #dce2e9;border-radius:9px;padding:7px 10px;color:#536174;font-size:12px}.switch-track{width:36px;height:21px;background:#d6dce5;border-radius:20px;padding:3px;transition:background .15s;display:inline-flex;align-items:center}.switch-track.on{background:#49ae88}.switch-thumb{height:15px;width:15px;background:white;border-radius:50%;box-shadow:0 1px 3px #0002;transition:transform .15s}.switch-track.on .switch-thumb{transform:translateX(15px)}.fixed-status{min-height:39px;border:1px solid #e7e9ef;border-radius:9px;background:#f1f3f6;color:#8b96a5;padding:10px;font-size:12px;display:flex;justify-content:space-between}.fixed-status span{font-size:10px}  .stars-icon{width:16px;height:16px;display:inline-block;vertical-align:middle;flex:none}.detail-shiny .stars-icon{width:16px;height:16px} .related .related-card{position:relative;padding-top:24px}.related-status{top:9px;right:9px;gap:7px;padding:0;background:transparent;box-shadow:none;border-radius:0;z-index:1}.related-status .status-icon,.related-status .status-icon img{width:16px;height:16px}@media(max-width:600px){.related-status{top:8px;right:8px;gap:5px}.related-status .status-icon,.related-status .status-icon img{width:14px;height:14px}}
+
+/* Active filters: clearly distinct from their default state */
+.toolbar select.filter-active,.toolbar input.filter-active{background:#e6f4ee;border-color:#3ca17d;color:#176b4d;box-shadow:0 0 0 1px #3ca17d inset;font-weight:600}
+.toolbar select:focus-visible,.toolbar input:focus-visible{outline:2px solid #3ca17d;outline-offset:2px}
+
+/* v1.0: detail card layout */
+.modal{width:min(850px,100%);padding:28px;border-radius:22px}.modal-top{align-items:flex-start;margin-bottom:32px}.modal-top .detail-title{margin-top:8px}.detail-shiny{border:1px solid transparent;display:inline-flex;align-items:center;gap:8px;background:#f0f3f7;color:#647287;border-radius:11px;padding:11px 14px;font-size:13px;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}.detail-shiny.is-on{background:#dff4e9;border-color:#a9dfc4;color:#16774f}.detail-layout{display:grid;grid-template-columns:minmax(0, 42%) minmax(0,1fr);gap:28px;align-items:stretch;margin-bottom:28px}.detail-layout .heroimg{width:100%;height:auto;aspect-ratio:1/1;min-width:0;flex:none;align-self:center}.detail-side{display:flex;flex-direction:column;justify-content:space-between;min-width:0;gap:22px}.detail-side .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0}.detail-side .field{min-width:0}.detail-side .field label{display:flex;align-items:center;gap:5px;line-height:1.4;min-height:22px}.detail-side .field select,.detail-side .switch-row,.detail-side .fixed-status{min-height:38px}.detail-facts{font-size:13px}.fact-row{display:grid;grid-template-columns:34% minmax(0,1fr);gap:12px;padding:9px 0;border-bottom:1px solid #e5e9ef;align-items:start}.fact-row>span{color:#8b98a9}.fact-row>div{overflow-wrap:anywhere}.fact-row .tag{margin:0 4px 4px 0}.modal .section{margin-top:20px;padding-top:20px}.modal .section h3{font-size:14px}.modal .related{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}.modal .related .related-card{min-height:150px}.modal .related-art{width:90px;height:90px}@media(max-width:640px){.modal{padding:18px;max-height:94vh}.modal-top{margin-bottom:20px}.detail-layout{grid-template-columns:1fr;gap:15px}.detail-layout .heroimg{width:min(100%,300px);margin:0 auto}.detail-side{gap:18px}.detail-side .fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.detail-side .field label{font-size:10px}.detail-side .field select{font-size:11px}.modal .related{grid-template-columns:repeat(auto-fill,minmax(90px,1fr))}.modal .related-art{width:70px;height:70px}.detail-shiny{font-size:11px;padding:8px}.modal-top .detail-title{font-size:18px}}
+/* v1.1 compact filters and consistent shiny controls */
+.toolbar{gap:7px;align-items:center}.toolbar input,.toolbar select{font-size:12px;padding:9px 10px;border-radius:9px;height:37px}.toolbar input{flex:1.5 1 175px;min-width:155px}.toolbar select{flex:1 1 110px;min-width:108px;max-width:170px;text-overflow:ellipsis}.toolbar .toolbar-shiny{margin-left:auto;min-height:37px;padding:8px 11px;font-size:12px;border-radius:9px}.toolbar .toolbar-shiny .stars-icon{width:15px;height:15px}.detail-facts .fact-tags{display:flex;flex-wrap:wrap;gap:5px}.detail-facts .fact-tags .tag{margin:0;padding:5px 8px;font-size:11px}.detail-facts .fact-tags .tag.muted{color:#9aa5b3;background:#f5f6f8}@media(max-width:600px){.toolbar{gap:6px}.toolbar input,.toolbar select{font-size:11px;padding:8px;flex:1 1 120px;max-width:none;min-width:0}.toolbar input{flex:2 1 100%}.toolbar .toolbar-shiny{margin-left:0;font-size:11px}}
+.detail-side .fields{gap:14px}.status-control{display:flex;align-items:center;gap:9px;min-width:0;width:100%;min-height:43px;padding:9px 11px;border:1px solid #dce2e9;border-radius:10px;background:#fff;color:#8491a2;font-size:12px;text-align:left;cursor:pointer;transition:background .15s,border-color .15s}.status-control .status-icon,.status-control .status-icon img{width:17px;height:17px;flex:none}.status-control-label{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status-control-value{margin-left:auto;white-space:nowrap;color:#65758a;font-size:12px}.status-control.is-active{background:#dff4e9;border-color:#b3ddcd}.status-control.is-active .status-control-value{color:#258966;font-weight:650}.status-control.is-fixed{background:#f0f2f5;border-color:#e5e9ef;color:#a1aab6;cursor:not-allowed}.status-control.is-fixed .status-control-value{color:#8f9aaa}.status-control:not(:disabled):hover{border-color:#85cbb1}.status-control:focus-visible{outline:2px solid #328b72;outline-offset:2px}@media(max-width:640px){.detail-side .fields{gap:8px}.status-control{padding:9px 7px;gap:5px;font-size:10px}.status-control-value{font-size:10px}.status-control .status-icon,.status-control .status-icon img{width:14px;height:14px}}
+
+/* v1.5 detail layout */
+.modal{width:min(980px,100%)}
+.modal-top{margin-bottom:34px}
+.modal-top .detail-title-inline{margin:0;font-size:20px}
+.detail-title-inline .pokemon-name,.detail-title-inline .form-name{display:inline;font-size:inherit;line-height:1.5}
+.detail-title-inline .form-name{margin:0 0 0 9px;color:#93a0b1;font-size:.75em;font-weight:600}
+.detail-layout{grid-template-columns:minmax(0,42%) minmax(0,1fr);gap:30px;align-items:stretch}
+.detail-layout .heroimg{align-self:center}
+.detail-side{justify-content:space-between;gap:28px}
+.detail-side>.detail-facts{margin:0}
+.detail-side>.fields{margin-top:auto;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.detail-facts .fact-row{grid-template-columns:34% minmax(0,1fr);padding:12px 0}
+@media(max-width:640px){.modal-top{margin-bottom:20px}.detail-layout{grid-template-columns:1fr;gap:18px}.detail-side{gap:18px}.detail-side>.fields{margin-top:4px}.detail-title-inline .form-name{font-size:.7em}}
+/* v1.6: simplified list cards and unified detail fact typography */
+.poke .info{padding:12px;min-height:58px;display:flex;align-items:flex-start}
+.poke .name{min-height:0;font-size:13px;line-height:1.45}
+.poke .name .form-name{font-size:11px}
+.detail-facts,.detail-facts .fact-row,.detail-facts .fact-row>span,.detail-facts .fact-row>div{font-size:13px;line-height:1.6}
+.detail-facts .tag,.detail-facts .fact-tags .tag{font-size:13px;line-height:1.4;padding:4px 8px;vertical-align:middle}
+@media(max-width:600px){.poke .info{padding:9px;min-height:52px}.poke .name{font-size:11px}.poke .name .form-name{font-size:10px}.detail-facts,.detail-facts .fact-row,.detail-facts .fact-row>span,.detail-facts .fact-row>div,.detail-facts .tag,.detail-facts .fact-tags .tag{font-size:12px}}
+/* v1.8: keep list card text areas identical with or without a form name */
+.poke .info{height:64px;min-height:64px;align-items:flex-start;overflow:hidden}
+@media(max-width:600px){.poke .info{height:57px;min-height:57px}}
+/* v1.8: gender glyphs, detail navigation, active related item */
+.gender-symbol{display:inline-block;font-size:22px;font-weight:650;line-height:1;vertical-align:middle;margin-right:8px}.gender-symbol:last-child{margin-right:0}.gender-symbol.male{color:#1688c4}.gender-symbol.female{color:#e43b69}
+.detail-top-actions{display:flex;align-items:center;gap:8px}.detail-nav{border:1px solid #dce3eb;background:#f1f4f8;color:#566779;border-radius:10px;min-width:38px;height:39px;font-size:27px;line-height:1;display:grid;place-items:center;cursor:pointer}.detail-nav:hover:not(:disabled){background:#e3edf5}.detail-nav:disabled{opacity:.35;cursor:not-allowed}.related .related-card.is-current{border:1px solid #e9b32c;background:#fffaf0}.related .related-card.is-current:hover{background:#fff7e6;border-color:#e9b32c}@media(max-width:640px){.detail-top-actions{gap:5px}.detail-nav{min-width:31px;height:33px;font-size:23px}.gender-symbol{font-size:19px}}
+
+header .toolbar{max-width:1200px;margin:0 auto;padding:0 20px 14px;display:flex;flex-wrap:nowrap;gap:10px}
+header .toolbar #search{flex:1;max-width:none;min-width:0;height:42px}
+.filter-open{white-space:nowrap;height:42px}.filter-open.has-filters{background:#e6f4ee;border-color:#3ca17d;color:#176b4d}
+.filter-dialog{padding:0;border:0;border-radius:18px;width:min(640px,calc(100% - 28px));max-height:calc(100dvh - 40px);color:#27313e;box-shadow:0 20px 70px #17243a3d;background:#fff;overflow:hidden}
+.filter-dialog[open]{display:flex;flex-direction:column}.filter-dialog::backdrop{background:#1a253b88}
+.filter-dialog-head{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:#f5f6f8;flex-shrink:0}.filter-dialog h2{font-size:18px;margin:0}
+.filter-close{border:0;background:transparent;color:#536174;font-size:30px;line-height:1;width:36px;height:36px;border-radius:8px}
+.filter-dialog-body{padding:24px;overflow:auto;overscroll-behavior:contain;display:grid;gap:22px}
+.filter-field{display:flex;flex-direction:column;gap:9px;min-width:0}.filter-field>label{font-size:14px;font-weight:650}
+.filter-field select{width:100%;height:46px;padding:10px 12px;border:1px solid #dce2e9;border-radius:10px;background:#fff;color:#344255;font-size:14px}
+.filter-field select.filter-active{background:#e6f4ee;border-color:#3ca17d;color:#176b4d}.filter-field .detail-shiny{align-self:flex-start}
+.filter-dialog-foot{display:flex;gap:12px;padding:18px 24px;background:#f5f6f8;flex-shrink:0}.filter-dialog-foot .btn{flex:1;min-height:44px;border-radius:24px}
+body:has(.filter-dialog[open]){overflow:hidden}
+@media(max-width:600px){header .toolbar{padding:0 12px 12px;gap:8px}header .toolbar #search{flex:1 1 0;font-size:12px}.filter-open{padding:8px 10px;font-size:12px}.filter-dialog-head{padding:14px 18px}.filter-dialog-body{padding:20px 18px;gap:18px}.filter-dialog-foot{padding:14px 18px;gap:8px}.filter-dialog h2{font-size:16px}}
+
+header .toolbar .toolbar-shiny{margin-left:0;height:42px;flex-shrink:0}
+.settings-dialog{width:min(540px,calc(100% - 28px))}.settings-dialog section+section{border-top:1px solid #edf0f3;padding-top:22px}.settings-dialog h3{font-size:14px;margin:0}.settings-dialog p{margin:8px 0 14px}.settings-dialog section>.btn{min-height:42px}
+@media(max-width:600px){header .toolbar{flex-wrap:wrap}header .toolbar #search{flex:1 1 100%;width:100%}header .toolbar .filter-open,header .toolbar .toolbar-shiny{flex:1;height:38px;justify-content:center}}
+
+/* Show unregistered Pokemon images in grayscale. */
+.art.is-unregistered>img,.related-art.is-unregistered>img{filter:grayscale(1);opacity:.45}
+
+.personal-memo{display:block;width:100%;min-height:120px;resize:vertical;border:1px solid #dce2e9;border-radius:10px;padding:12px;font:inherit;font-size:13px;line-height:1.7;color:#344255;background:#fff}.personal-memo:focus-visible{outline:2px solid #3ca17d;outline-offset:2px}
+.memo-indicator{position:absolute;right:9px;bottom:9px;width:26px;height:26px;display:grid;place-items:center;border-radius:8px;background:#ffffffed;border:1px solid #dce2e9}.memo-indicator img{width:14px;height:14px;opacity:.65}
+
+#settingsOpen{display:grid;place-items:center;width:40px;height:40px;padding:9px}#settingsOpen img{display:block;width:20px;height:20px}
+
+.filter-label{font-size:14px;font-weight:650}
+.filter-choices{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.filter-choice{min-height:38px;padding:8px 10px;border:1px solid #d0d6dd;border-radius:24px;background:#fff;color:#536174;font-size:12px;line-height:1.4;overflow-wrap:anywhere;transition:background .15s,border-color .15s}
+.filter-choice:hover{border-color:#85b7a5;background:#f5faf7}
+.filter-choice.is-selected{background:#dff1e8;border-color:#8fbdab;color:#176b4d;font-weight:600}
+.filter-choice:focus-visible{outline:2px solid #328b72;outline-offset:2px}
+@media(max-width:600px){.filter-choices{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.filter-choice{min-height:40px;padding:8px;font-size:11px}}
+
+header .toolbar .search-control{position:relative;display:flex;flex:1;min-width:0}
+header .toolbar .search-control #search{width:100%;padding-right:40px}
+.clear-condition{border:0;border-radius:50%;background:#e8edf1;color:#536174;width:30px;height:30px;padding:0;font-size:22px;line-height:1;display:grid;place-items:center;flex-shrink:0}
+.clear-condition[hidden]{display:none}.clear-condition:hover{background:#dce5eb}.clear-condition:focus-visible{outline:2px solid #328b72;outline-offset:2px}
+.search-control .clear-condition{position:absolute;right:6px;top:50%;transform:translateY(-50%)}
+.filter-control{display:flex;align-items:center;gap:6px}
+@media(max-width:600px){header .toolbar .search-control{flex:1 1 100%}header .toolbar .filter-control{flex:1;min-width:0}header .toolbar .filter-control .filter-open{flex:1}}
+
+/* Leave breathing room around the detail artwork. */
+.detail-layout .heroimg img{width:86%;height:86%;max-width:86%;max-height:86%}
+.poke .info.is-unregistered{background:#f0f3f7;color:#8995a6}
+
+.summary{align-items:center;gap:10px;flex-wrap:wrap}.summary #bulkToggle{margin-left:auto;font-size:12px}
+.bulk-panel{border:1px solid #cbded5;border-radius:14px;background:#f5faf7;padding:16px;margin:0 0 18px}.bulk-panel[hidden]{display:none}.bulk-heading,.bulk-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px}.bulk-heading{margin-bottom:14px;font-size:13px}.bulk-heading>span{color:#647287}.bulk-panel .btn{font-size:12px}.bulk-actions label{display:flex;flex-direction:column;gap:6px;font-size:12px;flex:1;min-width:130px}.bulk-actions select{padding:9px;border:1px solid #dce2e9;border-radius:9px;background:white;color:#344255}.bulk-actions>.btn{align-self:flex-end;min-height:39px}.bulk-panel .help{margin:10px 0 0}
+.poke.is-selectable{position:relative}.poke.is-selected{outline:2px solid #328b72;outline-offset:0}.bulk-check{position:absolute;bottom:9px;left:9px;border:1px solid #9badb9;background:#fff;width:22px;height:22px;border-radius:6px;display:grid;place-items:center;color:white;font-size:15px}.is-selected .bulk-check{background:#328b72;border-color:#328b72}.btn:disabled{opacity:.45;cursor:not-allowed}#shinyButton:disabled{opacity:.55;cursor:not-allowed}
+@media(max-width:600px){.bulk-panel{padding:12px}.bulk-actions>.btn{width:100%}.bulk-heading .btn{padding:8px}.bulk-check{width:20px;height:20px}}
+
+.filter-open{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:44px}.filter-open>img{display:block;width:20px;height:20px}.filter-badge{font-size:11px;min-width:18px;border-radius:12px;padding:2px 5px;background:#258966;color:#fff;line-height:1.3}
+.search-control .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:17px;height:17px;opacity:.55;pointer-events:none}
+header .toolbar .search-control #search{padding-left:38px}
+
+/* Search and filter share a compact, aligned control style. */
+header .toolbar{gap:12px}
+header .toolbar .search-control{flex:1 1 0;min-width:0;height:44px}
+header .toolbar .search-control #search{height:44px;border-radius:10px;padding-left:40px;padding-right:40px;box-shadow:none}
+header .toolbar .search-control #search.filter-active{background:#e6f4ee;border-color:#66b798;box-shadow:none}
+header .toolbar .filter-control{flex:0 0 auto;gap:0;height:44px;border:1px solid #dce2e9;border-radius:11px;background:white;padding:0 4px}
+header .toolbar .filter-control.has-filters{background:#e6f4ee;border-color:#66b798}
+header .toolbar .filter-control .filter-open{flex:0 0 auto;min-width:40px;width:40px;height:42px;border:0;background:transparent;padding:10px;box-shadow:none;border-radius:9px}
+.clear-condition{width:32px;height:32px;background:transparent;padding:4px}
+.clear-condition:hover{background:#328b7212}
+.clear-condition img{display:block;width:24px;height:24px;filter:invert(58%) sepia(13%) saturate(746%) hue-rotate(108deg) brightness(95%) contrast(87%)}
+.search-control .clear-condition{right:5px}
+@media(max-width:600px){header .toolbar{gap:8px}header .toolbar .search-control{flex:1 1 0}header .toolbar .filter-control{flex:0 0 auto}header .toolbar .filter-control .filter-open{flex:0 0 auto}header .toolbar .toolbar-shiny{flex:1 1 100%;height:38px}}
+
+.related-search-row{max-width:1200px;margin:0 auto;padding:0 20px 12px}.related-search-option{display:inline-flex;align-items:center;gap:8px;color:#647287;font-size:12px;cursor:pointer;min-height:28px}.related-search-option input{width:17px;height:17px;margin:0;accent-color:#328b72}.related-search-option:has(input:checked){color:#176b4d}
+@media(max-width:600px){.related-search-row{padding:0 12px 10px}}
+
+@media(max-width:600px){
+header .toolbar{flex-wrap:nowrap;gap:8px}
+header .toolbar .search-control{flex:1 1 0;min-width:0}
+header .toolbar .toolbar-shiny{flex:0 0 44px;width:44px;min-width:44px;height:44px;padding:10px;justify-content:center;border-radius:11px}
+header .toolbar .toolbar-shiny .shiny-label{display:none}
+header .toolbar .toolbar-shiny .stars-icon{width:22px;height:22px}
+}
+
+/* Consistent shiny controls in the toolbar and detail card. */
+.detail-shiny{border-color:#d8dfe7}
+.detail-shiny.is-on{border-color:#a2d5bc}
+.detail-shiny .stars-icon,header .toolbar .toolbar-shiny .stars-icon{width:22px;height:22px}
+
+.related-search-option{position:relative}
+.related-search-option input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.related-search-option>img{display:block;width:20px;height:20px;flex-shrink:0;opacity:.7}
+.related-search-option:has(input:checked):not(.is-disabled)>img{filter:invert(41%) sepia(23%) saturate(1012%) hue-rotate(107deg) brightness(94%) contrast(86%);opacity:1}
+.related-search-option.is-disabled,.related-search-option.is-disabled:has(input:checked){color:#9aa5b1;cursor:not-allowed}
+.related-search-option.is-disabled>img{opacity:.4}
+.related-search-option:has(input:focus-visible)>img{outline:2px solid #328b72;outline-offset:3px;border-radius:3px}
+
+.related-search-row[hidden]{display:none}
+
+.detail-close{display:grid;place-items:center;flex-shrink:0;width:36px;height:39px;padding:6px;border:0;border-radius:9px;background:transparent;cursor:pointer}
+.detail-close img{display:block;width:24px;height:24px;opacity:.5}.detail-close:hover{background:#f0f3f7}.detail-close:hover img{opacity:.75}.detail-close:focus-visible{outline:2px solid #328b72;outline-offset:2px}
+@media(max-width:640px){#detailShiny .shiny-label{display:none}#detailShiny{width:36px;height:36px;padding:6px;justify-content:center;flex-shrink:0}.detail-close{width:32px;height:36px;padding:4px}.detail-top-actions{flex-shrink:0}}
+
+/* Match dialog header styling across detail, filters and settings. */
+.modal{border-radius:18px}
+.modal .modal-top{align-items:center;background:#f5f6f8;margin:-28px -28px 28px;padding:18px 24px;gap:12px}
+.modal-top>div:first-child{min-width:0;flex:1}
+.modal-top .detail-title-inline{font-size:18px;overflow-wrap:anywhere}
+#detailClose{flex-shrink:0}
+#settingsOpen{border:0;background:transparent}
+@media(max-width:640px){.modal .modal-top{margin:-18px -18px 20px;padding:14px 18px;flex-wrap:wrap}.modal-top>div:first-child{flex:1 1 120px}.modal-top .detail-title-inline{font-size:16px}}
+</style></head><body><header><div class="head"><div><h1>すべてのすがた図鑑</h1><div class="sub">Pokédex · Personal collection · v1.8</div></div><div class="actions"><button class="btn" id="backupBtn">バックアップ</button><button class="btn" id="restoreBtn">復元</button></div></div></header><main><div class="notice" id="demoNote" role="status">図鑑データを読み込んでいます…</div><div class="toolbar"><input id="search" placeholder="名前・図鑑番号・メモで検索" aria-label="名前・図鑑番号・メモで検索"><select id="gen"><option value="">すべての世代</option></select><select id="cat"><option value="">すべてのカテゴリ</option></select><select id="registered"><option value="">すべての図鑑登録</option><option value="Yes">登録済み</option><option value="No">未登録</option></select><select id="game"><option value="">すべての登場作品</option></select><select id="owned"><option value="">すべての所持状況</option><option value="所持">所持</option><option value="未所持">未所持</option><option value="不可">不可</option></select><button type="button" id="shinyButton" aria-label="色違い表示" title="色違い表示" class="detail-shiny toolbar-shiny" aria-pressed="false"><img src="assets/images/stars.svg" alt="" class="stars-icon"><span class="shiny-label">色違い表示</span></button><input type="checkbox" id="shiny" hidden></div><div class="summary"><span id="count"></span><span>カードをタップして詳細・編集</span></div><div class="grid" id="grid"></div><div class="foot">図鑑データは公開CSVから読み込みます。登録・所持状況とメモはこのブラウザ内に保存されます。ポケモンの画像等の権利は各権利者に帰属します。</div></main><input type="file" id="jsonFile" accept=".json,application/json" hidden><div id="modalRoot"></div><script src="app.js"></script></body></html>
