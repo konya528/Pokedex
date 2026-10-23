@@ -207,4 +207,50 @@ header .toolbar .search-control #search:focus,.personal-memo:focus{outline:none;
 header .summary #selectedCount{margin-left:auto}header .summary #selectedCount:not([hidden])+#bulkEdit{margin-left:0}
 
 .detail-title-shiny{display:inline-block;width:20px;height:20px;margin-left:8px;vertical-align:-3px;object-fit:contain}
+
+.list-tag{background:var(--tag-background,#e6f4ec);border-color:var(--tag-border,#c5dfd3)}
+.poke .info .list-tag[style*="--tag-color"]{background:var(--tag-background);border-color:var(--tag-border);color:#435367;border-left:3px solid var(--tag-color)}
+.filter-choice.tag-colored{border-color:var(--tag-border);background:var(--tag-background);color:#435367;border-left:3px solid var(--tag-color)}
+.filter-choice.tag-colored.is-selected{outline:2px solid var(--tag-color);outline-offset:-2px;font-weight:650}
+.tag-manager-row{display:grid;grid-template-columns:minmax(0,1fr) 40px auto auto;align-items:center;gap:8px;margin-top:10px}.tag-manager-row input[type=text]{min-width:0;width:100%;border:1px solid #dce2e9;border-radius:9px;padding:9px;font:inherit;font-size:13px}.tag-manager-row input[type=color]{width:40px;height:38px;padding:3px;border:1px solid #dce2e9;border-radius:8px;background:white}.tag-manager-row .btn{font-size:12px;padding:8px}.tag-delete{color:#b24e55}
+@media(max-width:400px){.tag-manager-row{gap:5px;grid-template-columns:minmax(0,1fr) 34px auto auto}.tag-manager-row input[type=color]{width:34px}.tag-manager-row .btn{padding:8px 6px}}
+
+.filter-choice.tag-colored.is-selected{outline-color:var(--tag-ring,#328b72)}
+.tag-manager-row{grid-template-columns:minmax(0,1fr) auto auto;border-bottom:1px solid #edf0f3;padding-bottom:14px;row-gap:12px}
+.tag-palette{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:9px;padding:3px}
+.tag-swatch{width:28px;height:28px;flex:0 0 28px;border:1px solid #0000001f;border-radius:50%;padding:0;position:relative}
+.tag-swatch[aria-pressed=true]{outline:2px solid #536174;outline-offset:3px}
+.tag-swatch[aria-pressed=true]::after{content:'✓';font-size:16px;color:#344255;position:absolute;inset:0;display:grid;place-items:center}
+.tag-swatch:focus-visible{box-shadow:0 0 0 5px #328b7240}
+@media(max-width:400px){.tag-manager-row{grid-template-columns:minmax(0,1fr) auto auto}.tag-palette{gap:10px}.tag-swatch{width:27px;height:27px;flex-basis:27px}}
+
+.poke .info .list-tag[style*="--tag-color"]{background:var(--tag-background);border:1px solid var(--tag-border);border-radius:20px}
+.filter-choice.tag-colored,.filter-choice.tag-colored:hover,.filter-choice.tag-colored.is-selected{background:#fff;border:1px solid var(--tag-border);border-radius:24px}
+.filter-choice.tag-colored.is-selected{outline:2px solid var(--tag-ring);outline-offset:-2px;font-weight:650}
+
+.filter-choice.tag-colored.is-selected,.filter-choice.tag-colored.is-selected:hover{background:var(--tag-background)}
+
+.filter-choice.tag-colored.is-selected{outline:none;border-width:1px}
+
+#bulkAllToggle[hidden]{display:none}header .summary #bulkAllToggle:not([hidden])+#bulkEdit{margin-left:0}#bulkAllToggle[aria-pressed="true"]{border-color:#3ca17d;background:#e6f4ee;color:#176b4d}
+
+.bulk-tag-section{grid-column:1/-1;min-width:0}.bulk-tag-section h3{font-size:14px;margin:10px 0}
+.bulk-tag-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;border:0;border-bottom:1px solid #e1e6ec;padding:10px 2px;background:#fff;text-align:left;color:#435367}
+.bulk-tag-row .list-tag{background:var(--tag-background);border-color:var(--tag-border);border-radius:24px;padding:6px 10px;font-size:12px}
+.bulk-tag-row>img{width:25px;height:25px;flex-shrink:0}.bulk-tag-row:focus-visible{outline:2px solid #328b72;outline-offset:-2px}
+.bulk-dialog .bulk-actions .bulk-tag-row.is-changing{background:#fff;box-shadow:none;border-color:#3ca17d;color:#435367}
+
+.bulk-dialog .filter-dialog-head{gap:10px}.bulk-dialog .bulk-header-count{margin-left:auto;white-space:nowrap;color:#84909e;font-size:12px}
+.bulk-dialog .filter-dialog-body{min-height:0;overflow:auto}.bulk-dialog .filter-dialog-foot{flex-shrink:0}
+.bulk-dialog .filter-dialog-foot #bulkApply{margin:0;width:100%;min-height:44px;border-radius:24px}
+.bulk-dialog .bulk-actions .bulk-tag-row,.bulk-dialog .bulk-actions .bulk-tag-row.is-changing{color:#435367;border:0;border-bottom:1px solid #e1e6ec;background:#fff;box-shadow:none}
+.bulk-dialog .bulk-tag-row .list-tag{color:#435367}
+.bulk-dialog .bulk-tag-row>img{filter:brightness(0) saturate(100%) invert(55%) sepia(34%) saturate(628%) hue-rotate(104deg) brightness(94%) contrast(91%)}
+.bulk-dialog .bulk-tag-row:focus{outline:none}.bulk-dialog .bulk-tag-row:focus-visible{outline:2px solid #328b72;outline-offset:-2px}
+
+.poke{-webkit-touch-callout:none;user-select:none;-webkit-user-select:none;touch-action:pan-y}.poke img{-webkit-user-drag:none}
+
+.detail-tag-picker{display:flex;align-items:flex-start;gap:10px}.detail-tag-picker .personal-tags{flex:1;min-width:0}
+.detail-tag-picker select{max-width:45%;min-width:140px;padding:8px 10px;border:1px solid #dce2e9;border-radius:9px;background:#fff;color:#536174;font-size:12px;min-height:36px}.detail-tag-picker select:disabled{opacity:.5}.detail-tag-picker select:focus{outline:none;border-color:#3ca17d}
+@media(max-width:400px){.detail-tag-picker{gap:7px}.detail-tag-picker select{min-width:120px;font-size:11px;padding:8px}}
 </style></head><body><header><div class="head"><div><h1>すべてのすがた図鑑</h1><div class="sub">Pokédex · Personal collection · v1.8</div></div><div class="actions"><button class="btn" id="backupBtn">バックアップ</button><button class="btn" id="restoreBtn">復元</button></div></div></header><main><div class="notice" id="demoNote" role="status">図鑑データを読み込んでいます…</div><div class="toolbar"><input id="search" placeholder="名前・図鑑番号・メモで検索" aria-label="名前・図鑑番号・メモで検索"><select id="gen"><option value="">すべての世代</option></select><select id="cat"><option value="">すべてのカテゴリ</option></select><select id="registered"><option value="">すべての図鑑登録</option><option value="Yes">登録済み</option><option value="No">未登録</option></select><select id="game"><option value="">すべての登場作品</option></select><select id="owned"><option value="">すべての所持状況</option><option value="所持">所持</option><option value="未所持">未所持</option><option value="不可">不可</option></select><button type="button" id="shinyButton" aria-label="色違い表示" title="色違い表示" class="detail-shiny toolbar-shiny" aria-pressed="false"><img src="assets/images/stars.svg" alt="" class="stars-icon"><span class="shiny-label">色違い表示</span></button><input type="checkbox" id="shiny" hidden></div><div class="summary"><span id="count"></span></div><div class="grid" id="grid"></div><div class="foot">図鑑データは公開CSVから読み込みます。登録・所持状況とメモはこのブラウザ内に保存されます。ポケモンの画像等の権利は各権利者に帰属します。</div></main><input type="file" id="jsonFile" accept=".json,application/json" hidden><div id="modalRoot"></div><script src="app.js"></script></body></html>
