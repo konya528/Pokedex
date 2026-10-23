@@ -253,4 +253,37 @@ header .summary #selectedCount{margin-left:auto}header .summary #selectedCount:n
 .detail-tag-picker{display:flex;align-items:flex-start;gap:10px}.detail-tag-picker .personal-tags{flex:1;min-width:0}
 .detail-tag-picker select{max-width:45%;min-width:140px;padding:8px 10px;border:1px solid #dce2e9;border-radius:9px;background:#fff;color:#536174;font-size:12px;min-height:36px}.detail-tag-picker select:disabled{opacity:.5}.detail-tag-picker select:focus{outline:none;border-color:#3ca17d}
 @media(max-width:400px){.detail-tag-picker{gap:7px}.detail-tag-picker select{min-width:120px;font-size:11px;padding:8px}}
+
+.detail-tag-picker{display:block}
+.detail-tag-picker .personal-tags{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.detail-tag-picker .personal-tag,.detail-tag-picker #existingTag{height:36px;min-height:36px;border-radius:24px;padding:8px 10px;font-size:12px;line-height:18px}
+.detail-tag-picker #existingTag{flex:0 0 auto;width:auto;min-width:0;max-width:100%;margin:0;padding-right:26px;color:#536174}
+
+.new-tag-link{display:inline-block;border:0;background:transparent;padding:0;margin-top:12px;color:#328b72;font:inherit;font-size:12px;cursor:pointer;text-align:left}.new-tag-link:hover{text-decoration:underline}.new-tag-link:focus-visible{outline:2px solid #328b72;outline-offset:3px}
+#newTagForm[hidden],#showNewTag[hidden],#detailTagStatus:empty,#memoSaveStatus:empty{display:none}
+
+.detail-number{display:inline-block;margin-right:14px;color:#738193;font-size:16px;font-weight:600}
+.detail-layout .heroimg{position:relative;align-self:start}.hero-gender{position:absolute;left:14px;top:14px;display:flex;gap:6px;z-index:1}.hero-gender .gender-badge{display:inline-flex;align-items:center;justify-content:center;background:transparent;margin:0;padding:0;min-width:22px}.hero-gender .gender-icon{width:23px;height:23px}
+.detail-layout .detail-side{gap:14px;justify-content:flex-start}.detail-side>.fields{margin-top:8px;gap:12px}.detail-tag-row{display:grid;grid-template-columns:34% minmax(0,1fr);gap:12px;padding:12px 0}.detail-tag-row>span{color:#8b98a9}.detail-tag-row>div{min-width:0}
+.detail-memo .personal-memo{min-height:60px;height:60px;padding:10px 12px;line-height:1.5}.detail-layout{margin-bottom:32px}
+@media(max-width:640px){.detail-number{font-size:14px;margin-right:10px}.detail-layout .heroimg{align-self:center}.detail-layout .detail-side{gap:12px}.detail-tag-row{grid-template-columns:34% minmax(0,1fr)}.hero-gender{left:12px;top:12px}}
+
+/* Align detail labels and tighten tag spacing. */
+.detail-layout .detail-side{gap:0}
+.detail-side .fact-row>span{font-size:13px;line-height:1.6;font-weight:400}
+.detail-side .detail-tag-row{padding-top:10px;padding-bottom:12px}
+.detail-tag-picker .personal-tag,.detail-tag-picker #existingTag{height:30px;min-height:30px;padding-top:5px;padding-bottom:5px;line-height:18px}
+.detail-tag-picker .personal-tags{gap:7px}
+.detail-side>.fields{margin-top:18px}
+.detail-side>.detail-memo{margin-top:14px}
+@media(max-width:600px){.detail-side .fact-row>span{font-size:12px}}
+
+/* Consistent label column and vertical rhythm across detail facts. */
+.detail-side .detail-facts .fact-row,.detail-side .detail-tag-row{grid-template-columns:26% minmax(0,1fr);gap:12px;padding:12px 0;align-items:start}
+.detail-side .fact-row>span{padding-top:4px}
+.detail-side .detail-facts .fact-row .tag{margin-top:0;margin-bottom:0}
+.detail-side .detail-facts .fact-row .fact-tags{align-items:center}
+@media(max-width:640px){.detail-side .detail-facts .fact-row,.detail-side .detail-tag-row{grid-template-columns:26% minmax(0,1fr)}}
+
+.hero-gender .gender-unknown{font-size:20px;line-height:1.2;font-weight:500;color:#8b98a9}
 </style></head><body><header><div class="head"><div><h1>すべてのすがた図鑑</h1><div class="sub">Pokédex · Personal collection · v1.8</div></div><div class="actions"><button class="btn" id="backupBtn">バックアップ</button><button class="btn" id="restoreBtn">復元</button></div></div></header><main><div class="notice" id="demoNote" role="status">図鑑データを読み込んでいます…</div><div class="toolbar"><input id="search" placeholder="名前・図鑑番号・メモで検索" aria-label="名前・図鑑番号・メモで検索"><select id="gen"><option value="">すべての世代</option></select><select id="cat"><option value="">すべてのカテゴリ</option></select><select id="registered"><option value="">すべての図鑑登録</option><option value="Yes">登録済み</option><option value="No">未登録</option></select><select id="game"><option value="">すべての登場作品</option></select><select id="owned"><option value="">すべての所持状況</option><option value="所持">所持</option><option value="未所持">未所持</option><option value="不可">不可</option></select><button type="button" id="shinyButton" aria-label="色違い表示" title="色違い表示" class="detail-shiny toolbar-shiny" aria-pressed="false"><img src="assets/images/stars.svg" alt="" class="stars-icon"><span class="shiny-label">色違い表示</span></button><input type="checkbox" id="shiny" hidden></div><div class="summary"><span id="count"></span></div><div class="grid" id="grid"></div><div class="foot">図鑑データは公開CSVから読み込みます。登録・所持状況とメモはこのブラウザ内に保存されます。ポケモンの画像等の権利は各権利者に帰属します。</div></main><input type="file" id="jsonFile" accept=".json,application/json" hidden><div id="modalRoot"></div><script src="app.js"></script></body></html>
