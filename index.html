@@ -42,7 +42,7 @@
 @media(max-width:600px){.poke .info{height:57px;min-height:57px}}
 /* v1.8: gender glyphs, detail navigation, active related item */
 .gender-symbol{display:inline-block;font-size:22px;font-weight:650;line-height:1;vertical-align:middle;margin-right:8px}.gender-symbol:last-child{margin-right:0}.gender-symbol.male{color:#1688c4}.gender-symbol.female{color:#e43b69}
-.detail-top-actions{display:flex;align-items:center;gap:8px}.detail-nav{border:1px solid #dce3eb;background:#f1f4f8;color:#566779;border-radius:10px;min-width:38px;height:39px;font-size:27px;line-height:1;display:grid;place-items:center;cursor:pointer}.detail-nav:hover:not(:disabled){background:#e3edf5}.detail-nav:disabled{opacity:.35;cursor:not-allowed}.related .related-card.is-current{border:1px solid #e9b32c;background:#fffaf0}.related .related-card.is-current:hover{background:#fff7e6;border-color:#e9b32c}@media(max-width:640px){.detail-top-actions{gap:5px}.detail-nav{min-width:31px;height:33px;font-size:23px}.gender-symbol{font-size:19px}}
+.detail-top-actions{display:flex;align-items:center;gap:8px}.detail-nav{border:1px solid #dce3eb;background:#f1f4f8;color:#566779;border-radius:10px;min-width:38px;height:39px;font-size:27px;line-height:1;display:grid;place-items:center;cursor:pointer}.detail-nav:disabled{opacity:.35;cursor:not-allowed}.related .related-card.is-current{border:1px solid #e9b32c;background:#fffaf0}.related .related-card.is-current:hover{background:#fff7e6;border-color:#e9b32c}@media(max-width:640px){.detail-top-actions{gap:5px}.detail-nav{min-width:31px;height:33px;font-size:23px}.gender-symbol{font-size:19px}}
 
 header .toolbar{max-width:1200px;margin:0 auto;padding:0 20px 14px;display:flex;flex-wrap:nowrap;gap:10px}
 header .toolbar #search{flex:1;max-width:none;min-width:0;height:42px}
@@ -82,7 +82,7 @@ header .toolbar .toolbar-shiny{margin-left:0;height:42px;flex-shrink:0}
 header .toolbar .search-control{position:relative;display:flex;flex:1;min-width:0}
 header .toolbar .search-control #search{width:100%;padding-right:40px}
 .clear-condition{border:0;border-radius:50%;background:#e8edf1;color:#536174;width:30px;height:30px;padding:0;font-size:22px;line-height:1;display:grid;place-items:center;flex-shrink:0}
-.clear-condition[hidden]{display:none}.clear-condition:hover{background:#dce5eb}.clear-condition:focus-visible{outline:2px solid #328b72;outline-offset:2px}
+.clear-condition[hidden]{display:none}.clear-condition:focus-visible{outline:2px solid #328b72;outline-offset:2px}
 .search-control .clear-condition{position:absolute;right:6px;top:50%;transform:translateY(-50%)}
 .filter-control{display:flex;align-items:center;gap:6px}
 @media(max-width:600px){header .toolbar .search-control{flex:1 1 100%}header .toolbar .filter-control{flex:1;min-width:0}header .toolbar .filter-control .filter-open{flex:1}}
@@ -109,7 +109,7 @@ header .toolbar .filter-control{flex:0 0 auto;gap:0;height:44px;border:1px solid
 header .toolbar .filter-control.has-filters{background:#e6f4ee;border-color:#66b798}
 header .toolbar .filter-control .filter-open{flex:0 0 auto;min-width:40px;width:40px;height:42px;border:0;background:transparent;padding:10px;box-shadow:none;border-radius:9px}
 .clear-condition{width:32px;height:32px;background:transparent;padding:4px}
-.clear-condition:hover{background:#328b7212}
+
 .clear-condition img{display:block;width:24px;height:24px;filter:invert(58%) sepia(13%) saturate(746%) hue-rotate(108deg) brightness(95%) contrast(87%)}
 .search-control .clear-condition{right:5px}
 @media(max-width:600px){header .toolbar{gap:8px}header .toolbar .search-control{flex:1 1 0}header .toolbar .filter-control{flex:0 0 auto}header .toolbar .filter-control .filter-open{flex:0 0 auto}header .toolbar .toolbar-shiny{flex:1 1 100%;height:38px}}
@@ -168,7 +168,7 @@ header .summary #count{margin-right:auto}header .summary #bulkToggle{margin-left
 .bulk-dialog .bulk-heading{margin:0}.bulk-dialog .bulk-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:end}.bulk-dialog .bulk-actions label{min-width:0}.bulk-dialog #bulkApply{grid-column:1/-1;width:100%;border-radius:24px;min-height:44px;margin-top:8px}.bulk-dialog #bulkStatus:empty{display:none}
 @media(max-width:600px){header .summary{padding:10px 12px;gap:6px}header .summary .btn{font-size:11px;padding:8px}header .summary #selectedCount{font-size:11px}}
 
-header .summary #bulkToggle.is-exit{display:grid;place-items:center;width:36px;height:36px;padding:0;border:0;background:transparent;color:#536174;font-size:28px;line-height:1;flex-shrink:0}header .summary #bulkToggle.is-exit:hover{background:#edf0f3}
+header .summary #bulkToggle.is-exit{display:grid;place-items:center;width:36px;height:36px;padding:0;border:0;background:transparent;color:#536174;font-size:28px;line-height:1;flex-shrink:0}
 
 /* Only the detail body scrolls; both action bars stay visible. */
 #overlay .modal{display:flex;flex-direction:column;overflow:hidden;padding:0;max-height:90dvh}
@@ -196,7 +196,7 @@ header .summary .related-search-option{font-size:12px;white-space:nowrap}
 @media(max-width:600px){header .summary .related-search-option{font-size:11px;gap:5px}header .summary .related-search-option>img{width:17px;height:17px}}
 
 .detail-footer .detail-nav{border:0;background:transparent;border-radius:0;padding:4px;color:#566779;width:48px;height:48px}
-.detail-footer .detail-nav:hover:not(:disabled){background:transparent;color:#258966}
+
 .detail-footer .detail-nav svg{display:block;width:36px;height:36px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 .detail-footer .detail-nav:focus-visible{outline:2px solid #328b72;outline-offset:2px;border-radius:6px}
 
@@ -289,4 +289,56 @@ header .summary #selectedCount{margin-left:auto}header .summary #selectedCount:n
 
 #filterDialog .filter-choices{display:flex;flex-wrap:wrap;gap:8px}
 #filterDialog .filter-choice{flex:0 0 auto;width:auto;min-width:0;max-width:100%;padding-left:16px;padding-right:16px;white-space:normal;overflow-wrap:anywhere}
-</style></head><body><header><div class="head"><div><h1>すべてのすがた図鑑</h1><div class="sub">Pokédex · Personal collection · v1.8</div></div><div class="actions"><button class="btn" id="backupBtn">バックアップ</button><button class="btn" id="restoreBtn">復元</button></div></div></header><main><div class="notice" id="demoNote" role="status">図鑑データを読み込んでいます…</div><div class="toolbar"><input id="search" placeholder="名前・図鑑番号・メモ・タグで検索" aria-label="名前・図鑑番号・メモ・タグで検索"><select id="gen"><option value="">すべての世代</option></select><select id="cat"><option value="">すべてのカテゴリ</option></select><select id="registered"><option value="">すべての図鑑登録</option><option value="Yes">登録済み</option><option value="No">未登録</option></select><select id="game"><option value="">すべての登場作品</option></select><select id="owned"><option value="">すべての所持状況</option><option value="所持">所持</option><option value="未所持">未所持</option><option value="不可">不可</option></select><button type="button" id="shinyButton" aria-label="色違い表示" title="色違い表示" class="detail-shiny toolbar-shiny" aria-pressed="false"><img src="assets/images/stars.svg" alt="" class="stars-icon"><span class="shiny-label">色違い表示</span></button><input type="checkbox" id="shiny" hidden></div><div class="summary"><span id="count"></span></div><div class="grid" id="grid"></div><div class="foot">図鑑データは公開CSVから読み込みます。登録・所持状況とメモはこのブラウザ内に保存されます。ポケモンの画像等の権利は各権利者に帰属します。</div></main><input type="file" id="jsonFile" accept=".json,application/json" hidden><div id="modalRoot"></div><script src="app.js"></script></body></html>
+
+/* Reserve top metadata and bottom memo space around list artwork. */
+.poke .art{width:100%;height:180px;padding:28px 8px 26px;flex-shrink:0}
+.poke .art>img{width:125px;height:125px;max-width:100%;max-height:100%;object-fit:contain}
+.grid.show-list-games .poke{display:flex;flex-direction:column}
+.grid.show-list-games .poke .info{display:flex;flex-direction:column;width:100%;height:auto;min-height:64px;overflow:visible;flex:1}
+.list-games{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;width:100%}.list-games:empty{display:none}.list-games span{background:#f0f3f7;color:#8290a0;font-size:10px;line-height:1.4;border-radius:5px;padding:3px 5px}.info.is-unregistered .list-games span{background:#e5eaf0;color:#98a3b0}
+@media(max-width:600px){.poke .art{height:148px;padding:28px 6px 24px}.poke .art>img{width:94px;height:94px}.grid.show-list-games .poke .info{min-height:57px}.list-games{gap:3px}.list-games span{font-size:9px;padding:2px 4px}}
+
+header .summary #bulkAllToggle{margin-left:auto}header .summary #bulkAllToggle:not([hidden])+#bulkEdit{margin-left:0}
+
+.tag-manager-row input[type=text]{border-left:4px solid var(--selected-tag-color,#b8bec6)}
+.tag-manager-row .btn.has-unsaved-changes{background:#dff4e9;border-color:#3ca17d;color:#176b4d;font-weight:600}
+
+.tag-manager-row{grid-template-columns:30px minmax(0,1fr) auto auto;gap:8px;row-gap:10px;padding-bottom:10px;border-bottom:0}
+.tag-manager-row input[type=text]{border-left:1px solid #dce2e9}
+.tag-color-toggle{width:28px;height:28px;border:1px solid #00000026;border-radius:50%;padding:0;cursor:pointer}
+.tag-color-toggle:focus-visible{outline:2px solid #328b72;outline-offset:3px}
+.tag-manager-row .tag-palette{grid-column:1/-1;background:#f0f2f5;border-radius:8px;padding:12px;gap:10px}
+.tag-palette[hidden]{display:none}
+@media(max-width:400px){.tag-manager-row{grid-template-columns:28px minmax(0,1fr) auto auto;gap:6px}.tag-manager-row .tag-palette{gap:10px}}
+
+.modal-top .detail-title-inline{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;column-gap:12px}
+.modal-top .detail-title-inline .detail-number{margin:0;white-space:nowrap}
+.detail-title-name{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 9px;min-width:0}
+.detail-name-main{display:inline-flex;align-items:center;gap:6px;max-width:100%;white-space:nowrap}
+.modal-top .detail-title-inline .detail-title-name .form-name{display:block;flex:0 0 auto;max-width:100%;width:max-content;margin:0;font-size:.75em;line-height:1.5;overflow-wrap:anywhere}
+.detail-name-main .detail-title-shiny{margin:0;vertical-align:middle;flex-shrink:0}
+@media(max-width:640px){.modal-top .detail-title-inline{column-gap:9px}}
+
+#tagDisplayStatus:empty{display:none}
+
+.tag-manager-row .btn:disabled{background:#f1f3f5;border-color:#e2e6eb;color:#a1aab5;opacity:.65;cursor:not-allowed}
+
+#tagManagerStatus:empty{display:none}
+
+#filterDialog .filter-choice{min-height:32px;padding-top:5px;padding-bottom:5px}
+
+/* Keep these controls visually unchanged on hover. */
+.clear-condition:hover{background:transparent}
+.detail-footer .detail-nav:hover:not(:disabled){background:transparent;color:#566779}
+.tag-display-setting input{appearance:none;-webkit-appearance:none;border:0;border-radius:0;padding:0;background:transparent url('assets/images/square.svg') center/18px 18px no-repeat;flex-shrink:0;cursor:pointer}
+.tag-display-setting input:checked{background-image:url('assets/images/check-square-fill.svg');filter:invert(44%) sepia(25%) saturate(790%) hue-rotate(108deg) brightness(93%) contrast(87%)}
+.tag-display-setting input:focus-visible{outline:2px solid #328b72;outline-offset:3px}
+
+.poke .art .num{top:auto;bottom:8px;left:10px}
+.list-gender{position:absolute;top:9px;left:10px;display:flex;align-items:center;gap:4px;z-index:1;max-width:calc(100% - 58px)}
+.list-gender .gender-badge{display:inline-flex;align-items:center;justify-content:center;background:transparent;margin:0;padding:0}
+.list-gender .gender-icon{width:18px;height:18px}.list-gender .gender-unknown,.list-gender>.tag{font-size:10px;line-height:1.3;color:#95a1ae;background:transparent;margin:0;padding:0}
+@media(max-width:600px){.list-gender{top:8px;left:8px;gap:3px}.list-gender .gender-icon{width:16px;height:16px}.poke .art .num{left:8px;bottom:7px}.list-gender .gender-unknown{font-size:9px}}
+
+.bulk-dialog .bulk-actions select.is-changing,.bulk-dialog .bulk-actions input.is-changing{border-width:1px;box-shadow:none}
+</style></head><body><header><div class="head"><div><h1>すべてのすがた図鑑</h1></div><div class="actions"><button class="btn" id="backupBtn">バックアップ</button><button class="btn" id="restoreBtn">復元</button></div></div></header><main><div class="notice" id="demoNote" role="status">図鑑データを読み込んでいます…</div><div class="toolbar"><input id="search" placeholder="名前・図鑑番号・メモ・タグで検索" aria-label="名前・図鑑番号・メモ・タグで検索"><select id="gen"><option value="">すべての世代</option></select><select id="cat"><option value="">すべてのカテゴリ</option></select><select id="registered"><option value="">すべての図鑑登録</option><option value="Yes">登録済み</option><option value="No">未登録</option></select><select id="game"><option value="">すべての登場作品</option></select><select id="owned"><option value="">すべての所持状況</option><option value="所持">所持</option><option value="未所持">未所持</option><option value="不可">不可</option></select><button type="button" id="shinyButton" aria-label="色違い表示" title="色違い表示" class="detail-shiny toolbar-shiny" aria-pressed="false"><img src="assets/images/stars.svg" alt="" class="stars-icon"><span class="shiny-label">色違い表示</span></button><input type="checkbox" id="shiny" hidden></div><div class="summary"><span id="count"></span></div><div class="grid" id="grid"></div><div class="foot">図鑑データは公開CSVから読み込みます。登録・所持状況とメモはこのブラウザ内に保存されます。ポケモンの画像等の権利は各権利者に帰属します。</div></main><input type="file" id="jsonFile" accept=".json,application/json" hidden><div id="modalRoot"></div><script src="app.js"></script></body></html>
