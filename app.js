@@ -16,8 +16,9 @@ function searchMatches(q){if(!q)return null;const matches=new Set(db.pokemon.fil
 
 const GAMES=['ピカブイ','剣盾','BDSP','アルセウス','SV','Z-A','FRLG'];
 const store='pokedex_personal_v2';
-const DEX_LANGUAGES=[['JPN','日本語'],['ENG','英語'],['FRA','フランス語'],['ITA','イタリア語'],['GER','ドイツ語'],['SPA','スペイン語'],['KOR','韓国語'],['CHS','中国語（簡体字）'],['CHT','中国語（繁体字）']];
-function normalizeLanguages(data){const result=Object.create(null);if(data===undefined)return result;if(!data||typeof data!=='object'||Array.isArray(data))throw Error('言語図鑑の形式が不正です');for(const [number,codes] of Object.entries(data)){if(!/^[1-9][0-9]*$/.test(number)||!Array.isArray(codes))throw Error('言語図鑑の項目が不正です');const valid=DEX_LANGUAGES.map(([code])=>code).filter(code=>codes.includes(code));if(valid.length)result[number]=valid}return result}
+const DEX_LANGUAGES=[['ENG','英語'],['ES-ES','スペイン語（スペイン）'],['ES-LA','スペイン語（ラテンアメリカ）'],['FRA','フランス語'],['DEU','ドイツ語'],['ITA','イタリア語'],['JPN','日本語'],['KOR','韓国語'],['CHS','中国語（簡体字）'],['CHT','中国語（繁体字）']];
+const LEGACY_DEX_LANGUAGE_CODES=new Map([['GER','DEU'],['SPA','ES-ES']]);
+function normalizeLanguages(data){const result=Object.create(null);if(data===undefined)return result;if(!data||typeof data!=='object'||Array.isArray(data))throw Error('言語図鑑の形式が不正です');for(const [number,codes] of Object.entries(data)){if(!/^[1-9][0-9]*$/.test(number)||!Array.isArray(codes))throw Error('言語図鑑の項目が不正です');const migrated=new Set(codes.map(code=>LEGACY_DEX_LANGUAGE_CODES.get(code)??code));const valid=DEX_LANGUAGES.map(([code])=>code).filter(code=>migrated.has(code));if(valid.length)result[number]=valid}return result}
 function languageControls(p){const number=dexLanguageKey(p);return `<div class="dex-languages" data-dex-number="${number}" role="group" aria-label="${esc(p['名前'])}の言語図鑑">${DEX_LANGUAGES.map(([code,label])=>`<label><input type="checkbox" value="${code}" aria-label="${label}" ${(db.languages[number]||[]).includes(code)?'checked':''}><span>${code}</span></label>`).join('')}</div><div class="dex-language-status help" role="status"></div>`}
 function dexLanguageKey(p){return String(Number(p['全国図鑑No'].replaceAll(',','')))}
 let db={pokemon:[],states:{},tags:[],tagColors:{},languages:normalizeLanguages(),demo:false},active=null;
