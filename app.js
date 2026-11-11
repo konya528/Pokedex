@@ -183,7 +183,7 @@ async function initializeCatalog(){const notice=$('demoNote');notice.hidden=fals
 selectValues();render();initializeCatalog();
 
 const heading=document.querySelector('.head h1');heading.id='dexViewTitle';
-const switcher=document.createElement('button');switcher.type='button';switcher.className='dex-switch';switcher.textContent='⇄';switcher.setAttribute('aria-label','図鑑を切り替える');switcher.setAttribute('aria-haspopup','dialog');heading.parentElement.classList.add('dex-heading');heading.after(switcher);
+const switcher=document.createElement('button');switcher.type='button';switcher.className='dex-switch';switcher.innerHTML='<img src="assets/images/arrow-repeat.svg" alt="" width="24" height="24">';switcher.setAttribute('aria-label','図鑑を切り替える');switcher.setAttribute('aria-haspopup','dialog');heading.parentElement.classList.add('dex-heading');heading.after(switcher);
 const dexDialog=document.createElement('dialog');dexDialog.className='filter-dialog dex-dialog';dexDialog.innerHTML='<div class="filter-dialog-head"><h2>図鑑を選択</h2><button type="button" class="filter-close" aria-label="閉じる">×</button></div><div class="dex-options">'+DEX_VIEWS.map(([id,label])=>'<button type="button" class="btn" data-dex-view="'+esc(id)+'">'+esc(label)+'</button>').join('')+'</div>';document.body.append(dexDialog);
 switcher.onclick=()=>{for(const btn of dexDialog.querySelectorAll('[data-dex-view]'))btn.setAttribute('aria-pressed',String(btn.dataset.dexView===dexView));dexDialog.showModal()};
 dexDialog.querySelector('.filter-close').onclick=()=>dexDialog.close();
