@@ -1,6 +1,6 @@
 {
-  "name": "すべてのすがた図鑑",
-  "short_name": "すがた図鑑",
+  "name": "Personal Pokédex",
+  "short_name": "Personal Pokédex",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f7f8fa",
