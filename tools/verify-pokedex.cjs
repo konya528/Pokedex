@@ -6,7 +6,8 @@ const parseCSV=vm.runInNewContext(source.slice(source.indexOf('function parseCSV
 const [header,...rows]=parseCSV(fs.readFileSync('data/pokemon.csv','utf8'));
 const pokemon=rows.map(r=>Object.fromEntries(header.map((k,i)=>[k,r[i]])));
 assert.equal(pokemon.length,1595);
-assert.equal(header.length,27);
+assert.equal(header.length,25);
+assert(!header.includes("旧ID")&&!header.includes("旧キー"));
 assert(!header.some(k=>k.startsWith('ソフト図鑑')));
 assert.equal(new Set(pokemon.map(p=>p.ID)).size,pokemon.length);
 const context={parseCSV,db:{pokemon},localStorage:{getItem:()=>null},dexLanguageKey:p=>String(Number(p['全国図鑑No'].replaceAll(',',''))),esc:String,refreshDexOptions:()=>{}};
