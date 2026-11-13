@@ -26,7 +26,8 @@ for(const [name,count] of Object.entries(counts)){
   for(let i=1;i<list.length;i++)assert(Number(context.dexEntry(list[i-1])['図鑑番号'])<=Number(context.dexEntry(list[i])['図鑑番号']),name);
 }
 for(const [name,number,category] of [['ガラル','52','ガラルのすがた'],['ヨロイ島','79','ガラルのすがた'],['ヒスイ','58','ヒスイのすがた'],['パルデア','128','パルデアのすがた'],['ブルーベリー','37','アローラのすがた']]){vm.runInContext('dexView='+JSON.stringify('soft:'+name),context);const p=context.dexBaseRows().find(p=>context.dexLanguageKey(p)===number);assert(p,name+' regional representative exists');assert(context.categories(p).includes(category),name+' regional representative');}
-vm.runInContext("dexView='national'",context);assert(!context.categories(context.dexBaseRows().find(p=>context.dexLanguageKey(p)==='52')).includes('ガラルのすがた'));
+vm.runInContext("dexView='soft:ヒスイ'",context);assert.equal(context.dexBaseRows().find(p=>context.dexLanguageKey(p)==='550').ID,'0550-variant-02');
+vm.runInContext("dexView='national'",context);assert.equal(context.dexBaseRows().find(p=>context.dexLanguageKey(p)==='550').ID,'0550-default');assert(!context.categories(context.dexBaseRows().find(p=>context.dexLanguageKey(p)==='52')).includes('ガラルのすがた'));
 const [,entryRows]=[null,parseCSV(entries)];
 assert.throws(()=>context.loadDexCatalog(defs,entries+entryRows[1].map(v=>'"'+v.replaceAll('"','""')+'"').join(',')+'\n'));
 const bad=entryRows.map(r=>[...r]);bad[1][0]='missing-dex';
