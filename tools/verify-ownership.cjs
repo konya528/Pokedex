@@ -39,7 +39,7 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
  await page.waitForFunction(()=>db.softwareOwned['Pokémon GO']?.['1']===true);
  await page.reload();await page.waitForFunction(()=>searchStateReady);assert(await page.evaluate(()=>db.languageOwned['1'].includes('ENG')));
  await choose('soft:パルデア');await page.locator('#search').fill('ニャオハ');assert.equal(await page.locator('.poke').count(),1);
- await page.locator('#bulkToggle').click();await page.locator('.poke').click();await page.locator('#bulkEdit').click();assert(await page.locator('#bulkState').isVisible());await page.locator('#bulkState').selectOption('owned');await page.locator('#bulkApply').click();
+ await page.locator('#bulkToggle').click();await page.locator('.poke').click();await page.locator('#bulkEdit').click();assert(await page.locator('#bulkState').isVisible());await page.locator('#bulkOwned').selectOption('owned');await page.locator('#bulkApply').click();
  assert(await page.evaluate(()=>db.softwareOwned['パルデア']['906']&&db.software['パルデア']['906']));
  assert.equal(await page.evaluate(()=>bulkSelection.size),1);
  await choose('soft:メガシンカ');await page.locator('#search').fill('メガフシギバナ');
